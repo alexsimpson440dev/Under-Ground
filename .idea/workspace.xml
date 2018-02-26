@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d7fa95ab-9dce-4b04-a8c8-de7f0a92e0c3" name="Default" comment="" />
+    <list default="true" id="d7fa95ab-9dce-4b04-a8c8-de7f0a92e0c3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/tables/table_user.py" afterPath="$PROJECT_DIR$/src/tables/table_user.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,8 +16,8 @@
       <file leaf-file-name="table_user.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tables/table_user.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+            <state relative-caret-position="425">
+              <caret line="17" column="41" lean-forward="true" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
               <folding>
                 <element signature="e#0#75#0" expanded="true" />
               </folding>
@@ -87,11 +89,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/tables/table_users.py" />
-        <option value="$PROJECT_DIR$/src/tables/table_user.py" />
         <option value="$PROJECT_DIR$/src/tables/table_user_info.py" />
         <option value="$PROJECT_DIR$/src/tables/table_manager.py" />
         <option value="$PROJECT_DIR$/src/tables/table_bill_acount.py" />
         <option value="$PROJECT_DIR$/src/tables/table_bill.py" />
+        <option value="$PROJECT_DIR$/src/tables/table_user.py" />
       </list>
     </option>
   </component>
@@ -258,8 +260,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tables/table_user.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+        <state relative-caret-position="425">
+          <caret line="17" column="41" lean-forward="true" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
           <folding>
             <element signature="e#0#75#0" expanded="true" />
           </folding>
