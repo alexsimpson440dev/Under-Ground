@@ -5,6 +5,7 @@ from sqlalchemy.schema import Sequence
 from src.tables.table_user import User
 from src.tables.table_user_info import UserInfo
 from src.tables.table_manager import Manager
+from src.tables.table_bill_account import BillAccount
 METADATA = MetaData()
 
 
@@ -44,3 +45,14 @@ class Database(object):
                         Column('user_id', Integer)
                         )
         mapper(Manager, manager)
+        return manager
+
+    def _map_bill_account(self):
+        bill_account = Table('bill_account', METADATA,
+                             Column('account_id', Integer, Sequence('article_aid_seq', start=100001, increment=1, optional=True)),
+                             Column('manager_id', Integer),
+                             Column('account_name', String(15)),
+                             Column('account_type', Integer)
+                             )
+        mapper(BillAccount, bill_account)
+        return bill_account
