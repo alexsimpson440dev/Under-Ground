@@ -7,7 +7,7 @@ from src.tables.table_user_info import UserInfo
 from src.tables.table_manager import Manager
 from src.tables.table_bill_account import BillAccount
 from src.tables.table_bill_config import BillConfig
-
+from src.tables.table_bill import Bill
 
 METADATA = MetaData()
 
@@ -71,3 +71,21 @@ class Database(object):
                             Column('bill_5', String(10))
                             )
         mapper(BillConfig, bill_config)
+        return bill_config
+
+    def _map_bill(self):
+        bill = Table('bill', METADATA,
+                     Column('bill_id', Integer, Sequence('article_aid_seq', start=50001, increment=1, optional=True)),
+                     Column('bill_config_id', Integer),
+                     Column('date', Date),
+                     Column('bill_c_1', Float),
+                     Column('bill_c_2', Float),
+                     Column('bill_c_3', Float),
+                     Column('bill_c_4', Float),
+                     Column('bill_c_5', Float),
+                     Column('total_pp', Float),
+                     Column('total', Float),
+                     Column('due_date', Date)
+                     )
+        mapper(Bill, bill)
+        return bill
