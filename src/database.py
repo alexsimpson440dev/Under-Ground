@@ -6,6 +6,9 @@ from src.tables.table_user import User
 from src.tables.table_user_info import UserInfo
 from src.tables.table_manager import Manager
 from src.tables.table_bill_account import BillAccount
+from src.tables.table_bill_config import BillConfig
+
+
 METADATA = MetaData()
 
 
@@ -56,3 +59,15 @@ class Database(object):
                              )
         mapper(BillAccount, bill_account)
         return bill_account
+
+    def _map_bill_config(self):
+        bill_config = Table('bill_config', METADATA,
+                            Column('bill_config_id', Integer, Sequence('article_aid_seq', start=1, increment=1, optional=True)),
+                            Column('account_id', Integer),
+                            Column('bill_1', String(10)),
+                            Column('bill_2', String(10)),
+                            Column('bill_3', String(10)),
+                            Column('bill_4', String(10)),
+                            Column('bill_5', String(10))
+                            )
+        mapper(BillConfig, bill_config)
