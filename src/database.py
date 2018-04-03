@@ -2,12 +2,12 @@ from sqlalchemy import Table, MetaData, Column, Integer, Float, String, Date, Fo
 from sqlalchemy.orm import mapper, relationship
 from sqlalchemy.schema import Sequence
 
-from src.tables.table_user import User
-from src.tables.table_user_info import UserInfo
-from src.tables.table_manager import Manager
-from src.tables.table_bill_account import BillAccount
-from src.tables.table_bill_config import BillConfig
-from src.tables.table_bill import Bill
+from src.models.table_user import User
+from src.models.table_user_info import UserInfo
+from src.models.table_manager import Manager
+from src.models.table_bill_account import BillAccount
+from src.models.table_bill_config import BillConfig
+from src.models.table_bill import Bill
 
 METADATA = MetaData()
 
@@ -50,6 +50,7 @@ class Database(object):
                       Column('info_id', Integer, Sequence('article_aid_seq', start=1, increment=1, optional=True), primary_key=True),
                       Column('user_id', Integer, ForeignKey('user.user_id')),
                       Column('manager_id', Integer, ForeignKey('manager.manager_id')),
+                      Column('account_id', Integer, ForeignKey('bill_account.account_id')),
                       Column('first_name', String),
                       Column('last_name', String),
                       Column('address', String),
@@ -80,7 +81,8 @@ class Database(object):
                              Column('account_type', Integer)
                              )
         mapper(BillAccount, bill_account,
-               properties={'bill_config': relationship(BillConfig, backref='bill_account')}
+               properties={'bill_config':relationship(BillConfig, backref='bill_account'),
+                           'bill_account':relationship(BillAccount, backref='bill_account')}
                )
         return bill_account
 
