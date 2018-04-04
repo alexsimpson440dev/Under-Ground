@@ -62,6 +62,19 @@ class Database(object):
         mapper(UserInfo, user_info)
         return user_info
 
+    def _map_bill_account(self):
+        bill_account = Table('bill_account', METADATA,
+                             Column('account_id', Integer, Sequence('article_aid_seq', start=100001, increment=1, optional=True), primary_key=True),
+                             Column('manager_id', Integer, ForeignKey('manager.manager_id')),
+                             Column('account_name', String(15)),
+                             Column('account_type', Integer)
+                             )
+        mapper(BillAccount, bill_account,
+               properties={'bill_config':relationship(BillConfig, backref='bill_account'),
+                           'user_info':relationship(UserInfo, backref='bill_account')}
+               )
+        return bill_account
+
     def _map_manager(self):
         manager = Table('manager', METADATA,
                         Column('manager_id', Integer, Sequence('article_aid_seq', start=10001, increment=1, optional=True), primary_key=True),
@@ -72,19 +85,6 @@ class Database(object):
                            'user_info':relationship(UserInfo, backref='manager')}
                )
         return manager
-
-    def _map_bill_account(self):
-        bill_account = Table('bill_account', METADATA,
-                             Column('account_id', Integer, Sequence('article_aid_seq', start=100001, increment=1, optional=True), primary_key=True),
-                             Column('manager_id', Integer, ForeignKey('manager.manager_id')),
-                             Column('account_name', String(15)),
-                             Column('account_type', Integer)
-                             )
-        mapper(BillAccount, bill_account,
-               properties={'bill_config':relationship(BillConfig, backref='bill_account'),
-                           'bill_account':relationship(BillAccount, backref='bill_account')}
-               )
-        return bill_account
 
     def _map_bill_config(self):
         bill_config = Table('bill_config', METADATA,
