@@ -101,5 +101,5 @@ ENV/
 .mypy_cache/
 
 # sqlfiles
-**/*lsqlite3
+**/*.sqlite3
 **/*.sqlite
