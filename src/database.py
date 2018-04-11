@@ -13,8 +13,8 @@ METADATA = MetaData()
 
 
 class Database(object):
-    def __init__(self, connection_string='sqlite:///test.sqlite3'):
-        self.sqlfile = connection_string
+    def __init__(self, connection_string='postgres://ddelwwtqhzrqec:7de7df887c166a9eefbf09643d3f9954a6f9a183bc67ced17b515066fa6c7594@ec2-54-235-85-127.compute-1.amazonaws.com:5432/d8fob77u3eb9tn'):
+        self.db = connection_string
 
         self.user = self._map_user()
         self.user_info = self._map_user_info()
@@ -28,7 +28,7 @@ class Database(object):
 
 
     def _create_db(self):
-        engine = create_engine(self.sqlfile)
+        engine = create_engine(self.db)
         return engine
 
     def _map_user(self):
