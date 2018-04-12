@@ -19,9 +19,9 @@ class QueryManager(object):
 #--------------------INSERT QUERIES--------------------------------------------
     # inserts user
     def insert_user(self, username, email_address, password):
-        hashed_password = self._hash_password(password)
+        # hashed_password = self._hash_password(password)
 
-        user = User(username, email_address, hashed_password)
+        user = User(username, email_address, password)
         insert.insert_object(user)
 
 #--------------------UPDATE QUERIES--------------------------------------------

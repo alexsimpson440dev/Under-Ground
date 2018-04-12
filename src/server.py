@@ -4,6 +4,10 @@ from src.apis.session_api import SessionAPI
 from src.new_data_validator import NewDataValidator
 import sys
 
+from src.queries.select import Select
+
+select = Select()
+
 sessionAPI = SessionAPI()
 query = QueryManager()
 validate = NewDataValidator()
@@ -22,9 +26,9 @@ def sign_up():
     #try:
         if sessionAPI.check_session() is False:
             if request.method == 'POST':
+                select.select_email("email")
                 new_user = request.form
                 validate.validate_user(new_user)
-                print(new_user)
 
 
                 return render_template(url_for('sign_in')) # <-------------use something else, not right ------------->

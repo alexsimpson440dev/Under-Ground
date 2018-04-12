@@ -1,21 +1,18 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from src.database import Database
+from sqlalchemy import create_engine, engine, MetaData
+from sqlalchemy.orm import sessionmaker, Session
+from src.models.table_user import User
 
-
+metadata = MetaData()
 
 class Select(object):
-    def __init__(self, connection_string='postgres://ddelwwtqhzrqec:7de7df887c166a9eefbf09643d3f9954a6f9a183bc67ced17b515066fa6c7594@ec2-54-235-85-127.compute-1.amazonaws.com:5432/d8fob77u3eb9tn'):
-        self.db = connection_string
-        self.engine = create_engine(self.db)
+    def __init__(self):
+        metadata.create_all(bind="sqlite:///test.sqlite3")
 
     def _get_session(self):
-        Session = sessionmaker(bind=self.engine)
-        return Session
+        session = Session()
+        return session
 
     def select_email(self, email_address):
-        Session = self._get_session()
-        conn = self.engine.connect()
-        session = Session(bind=conn)
-        for email, in session.query(User).filter(User.email_address==email_address):
-            print(email)
+        session = self._get_session()
+        user = session.query(User).filter(User.email_address == email_address):
+

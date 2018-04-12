@@ -13,19 +13,29 @@ METADATA = MetaData()
 
 
 class Database(object):
-    def __init__(self, connection_string='postgres://ddelwwtqhzrqec:7de7df887c166a9eefbf09643d3f9954a6f9a183bc67ced17b515066fa6c7594@ec2-54-235-85-127.compute-1.amazonaws.com:5432/d8fob77u3eb9tn'):
+    def __init__(self, connection_string='sqlite:///test.sqlite3'):
         self.db = connection_string
 
-        self.user = self._map_user()
+        '''self.user = self._map_user()
         self.user_info = self._map_user_info()
         self.manager = self._map_manager()
         self.bill_account = self._map_bill_account()
         self.bill_config = self._map_bill_config()
-        self.bill = self._map_bill()
+        self.bill = self._map_bill()'''
 
         self.engine = self._create_db()
         METADATA.create_all(bind=self.engine)
 
+
+    def _map_all(self):
+        user = self._map_user()
+        user_info = self._map_user_info()
+        manager = self._map_manager()
+        bill_account = self._map_bill_account()
+        bill_config = self._map_bill_config()
+        bill = self._map_bill()
+
+        return (user, user_info, manager, bill_account, bill_config, bill)
 
     def _create_db(self):
         engine = create_engine(self.db)
