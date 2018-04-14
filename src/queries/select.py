@@ -1,18 +1,16 @@
-from sqlalchemy import create_engine, engine, MetaData
-from sqlalchemy.orm import sessionmaker, Session
+from src.database import Database
 from src.models.table_user import User
 
-metadata = MetaData()
 
 class Select(object):
     def __init__(self):
-        metadata.create_all(bind="sqlite:///test.sqlite3")
+        self.DB = Database()
 
     def _get_session(self):
-        session = Session()
+        session = self.DB.get_session()
         return session
 
     def select_email(self, email_address):
         session = self._get_session()
-        user = session.query(User).filter(User.email_address == email_address):
-
+        for user in session.query(User.email_address).filter(User.email_address==email_address):
+            print(user.email_address)

@@ -1,9 +1,30 @@
-class UserInfo(object):
-    def __init__(self, user_id, manager_id, account_id, first_name, last_name, address, city, state, zip, phone, info_id=None):
+from sqlalchemy import Column, Integer, Date, Float, Sequence, ForeignKey, String
+from sqlalchemy.orm import relationship, backref
+from src.database import Base
+
+
+class UserInfo(Base):
+
+    __tablename__ = 'user_info'
+
+    info_id = Column(Integer, Sequence('article_aid_seq', start=1, increment=1, optional=True), primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.user_id'))
+    manager_id = Column(Integer, ForeignKey('manager.manager_id'))
+    account_id = Column(Integer, ForeignKey('bill_account.account_id'))
+    first_name = Column(String)
+    last_name = Column(String)
+    address = Column(String)
+    city = Column(String)
+    state = Column(String(2))
+    zip = Column(Integer)
+    phone = Column(String(12))
+
+    users = relationship("User", backref=backref("user_info", uselist=False))
+    managers = relationship("Manager", backref=backref("user_info", uselist=False))
+    bill_accounts = relationship("BillAccount", backref="user_info")
+
+    def __init__(self, first_name, last_name, address, city, state, zip, phone, users, managers, bill_accounts, info_id=None):
         self.info_id = info_id
-        self.user_id = user_id
-        self.manager_id = manager_id
-        self.account_id = account_id
         self.first_name = first_name
         self.last_name = last_name
         self.address = address
@@ -11,3 +32,7 @@ class UserInfo(object):
         self.state = state
         self.zip = zip
         self.phone = phone
+        # relationships
+        self.users = users
+        self.mangers = managers
+        self.bill_accounts = bill_accounts
