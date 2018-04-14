@@ -1,5 +1,5 @@
+from src.models import User, UserInfo, Manager, Bill, BillConfig, BillAccount
 from src.database import Database
-from src.models.table_user import User
 
 
 class Select(object):
