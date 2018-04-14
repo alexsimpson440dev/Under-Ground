@@ -23,12 +23,14 @@ def sign_in():
 @app.route('/signup', methods=['post', 'get'])
 @app.route('/signup.html')
 def sign_up():
-    #try:
+    try:
         if sessionAPI.check_session() is False:
             if request.method == 'POST':
-                select.select_email("email")
                 new_user = request.form
-                validate.validate_user(new_user)
+                if validate.validate_user(new_user) is True:
+                    print("Valid")
+                else:
+                    print("Not Valid")
 
 
                 return render_template(url_for('sign_in')) # <-------------use something else, not right ------------->
@@ -38,11 +40,10 @@ def sign_up():
 
         else:
             return redirect(url_for('sign_up'))
-    #except:
-        '''print('fail')
+    except:
         error = sys.exc_info()[0]
         print(error)
-        return redirect(url_for('sign_up'))'''
+        return redirect(url_for('sign_up'))
 
 
 if __name__ == '__main__':
