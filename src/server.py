@@ -20,6 +20,7 @@ app = Flask(__name__, '/static', static_folder='../static', template_folder='../
 def sign_in():
     return render_template('signin.html')
 
+
 @app.route('/signup', methods=['post', 'get'])
 @app.route('/signup.html')
 def sign_up():
@@ -29,8 +30,11 @@ def sign_up():
                 new_user = request.form
                 if validate.validate_user(new_user) is True:
                     print("Valid")
+                    render_template(url_for('sign_in'))
                 else:
                     print("Not Valid")
+                    render_template(url_for('sign_up'))
+
 
 
                 return render_template(url_for('sign_in')) # <-------------use something else, not right ------------->
@@ -39,13 +43,11 @@ def sign_up():
                 return render_template(url_for('sign_up'))
 
         else:
-            return redirect(url_for('sign_up'))
+            return redirect(url_for('sign_up')) # sign out the current user, return to sign up
     except:
         error = sys.exc_info()[0]
         print(error)
         return redirect(url_for('sign_up'))
-
-def
 
 
 if __name__ == '__main__':
