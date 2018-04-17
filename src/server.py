@@ -18,7 +18,7 @@ app = Flask(__name__, '/static', static_folder='../static', template_folder='../
 @app.route('/signin')
 @app.route('/signin.html')
 def sign_in():
-    return render_template('signin.html')
+    return render_template(url_for('sign_in'))
 
 
 @app.route('/signup', methods=['post', 'get'])
@@ -28,16 +28,12 @@ def sign_up():
         if sessionAPI.check_session() is False:
             if request.method == 'POST':
                 new_user = request.form
-                if validate.validate_user(new_user) is True:
+                if validate.validate_user(new_user) and validate.validate_user_info(new_user) is True:
                     print("Valid")
-                    render_template(url_for('sign_in'))
+                    return render_template(url_for('sign_in'))
                 else:
                     print("Not Valid")
-                    render_template(url_for('sign_up'))
-
-
-
-                return render_template(url_for('sign_in')) # <-------------use something else, not right ------------->
+                    return render_template(url_for('sign_up'))
 
             else:
                 return render_template(url_for('sign_up'))

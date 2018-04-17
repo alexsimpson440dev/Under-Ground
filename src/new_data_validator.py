@@ -25,6 +25,22 @@ class NewDataValidator(object):
         else:
             return False
 
+    def validate_user_info(self, user_info):
+        zip_code = user_info.get('zip')
+        phone_number = user_info.get('phone_number')
+
+        try:
+            if int(zip_code) and int(phone_number):
+                return True
+
+            else:
+                print("not ints")
+                return False
+
+        except ValueError as Error:
+            print(Error)
+            return False
+
     @staticmethod
     def _validate_password(password):
         if re.search(r'[a-z]', password):
