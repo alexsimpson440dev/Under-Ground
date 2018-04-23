@@ -9,7 +9,6 @@ class UserInfo(Base):
 
     info_id = Column(Integer, Sequence('article_aid_seq', start=1, increment=1, optional=True), primary_key=True)
     user_id = Column(Integer, ForeignKey('user.user_id'))
-    manager_id = Column(Integer, ForeignKey('manager.manager_id'))
     account_id = Column(Integer, ForeignKey('bill_account.account_id'))
     first_name = Column(String)
     last_name = Column(String)
@@ -20,10 +19,9 @@ class UserInfo(Base):
     phone = Column(String(12))
 
     users = relationship("User", backref=backref("user_info", uselist=False))
-    managers = relationship("Manager", backref=backref("user_info", uselist=False))
     bill_accounts = relationship("BillAccount", backref="user_info")
 
-    def __init__(self, first_name, last_name, address, city, state, zip, phone, users, managers, bill_accounts, info_id=None):
+    def __init__(self, first_name, last_name, address, city, state, zip, phone, users, bill_accounts, info_id=None):
         self.info_id = info_id
         self.first_name = first_name
         self.last_name = last_name
@@ -34,5 +32,4 @@ class UserInfo(Base):
         self.phone = phone
         # relationships
         self.users = users
-        self.mangers = managers
         self.bill_accounts = bill_accounts

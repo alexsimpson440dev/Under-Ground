@@ -20,4 +20,7 @@ class Select(object):
         for user in session.query(User.user_name).filter(User.user_name==user_name):
             return user.user_name
 
-    def select_manager(self, manager_
+    def select_bill_account(self, manager_id):
+        session = self._get_session()
+        for account in session.query(BillAccount).filter(BillAccount.manager_id==manager_id):
+            return account

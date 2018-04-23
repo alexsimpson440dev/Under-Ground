@@ -7,11 +7,12 @@ import bcrypt
 
 query = QueryManager()
 
-class DataPersister(object):
+
+class DataPersist(object):
     def __init__(self):
         pass
 
-    def persist_user(self, new_user):
+    def persist_user(self, new_user, manager_id):
         user_name = new_user.get('user_name')
         email_address = new_user.get('email_address')
         password = new_user.get('password1')
@@ -25,10 +26,11 @@ class DataPersister(object):
         state = new_user.get('state')
         zip = new_user.get('zip')
         phone = new_user.get('phone')
-        manager = query.select_manager()
-
+        account = query.select_bill_account(manager_id)
+        user_info = UserInfo(first_name, last_name, address, city, state, zip, phone, user, account)
 
         query.insert_user(user)
+        query.insert_user_info(user_info)
 
     # encrypts password
     @staticmethod
