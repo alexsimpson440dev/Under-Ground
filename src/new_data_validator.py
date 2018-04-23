@@ -19,7 +19,6 @@ class NewDataValidator(object):
                     if query.select_user_name(user_name) is None:
                         if query.select_email_address(email_address) is None:
                             if password1 == password2:
-                                query.insert_user(user_name, email_address, password1)
                                 return True
 
         else:
@@ -34,7 +33,6 @@ class NewDataValidator(object):
                 return True
 
             else:
-                print("not ints")
                 return False
 
         except ValueError as Error:

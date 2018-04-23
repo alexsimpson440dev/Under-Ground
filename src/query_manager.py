@@ -1,6 +1,7 @@
 from src.queries.insert import Insert
 from src.queries.select import Select
 from src.models.table_user import User
+from src.models.table_user_info import UserInfo
 
 import bcrypt
 
@@ -24,20 +25,14 @@ class QueryManager(object):
 
 #--------------------INSERT QUERIES--------------------------------------------
     # inserts user
-    def insert_user(self, username, email_address, password):
-        hashed_password = self._hash_password(password.encode('utf-8'))
-
-        user = User(username, email_address, hashed_password)
+    def insert_user(self, user):
         insert.insert_object(user)
+
+    def insert_user_info(self, user_info):
+        bill_account = "get" # get using the manager_id
+
+        insert.insert_object(user_info)
 
 #--------------------UPDATE QUERIES--------------------------------------------
 
 #--------------------DELETE QUERIES--------------------------------------------
-
-    # encrypts password
-    @staticmethod
-    def _hash_password(password):
-        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
-        hashed_password = hashed_password.decode('utf-8')
-
-        return hashed_password

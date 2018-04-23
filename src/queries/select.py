@@ -19,3 +19,5 @@ class Select(object):
         session = self._get_session()
         for user in session.query(User.user_name).filter(User.user_name==user_name):
             return user.user_name
+
+    def select_manager(self, manager_
