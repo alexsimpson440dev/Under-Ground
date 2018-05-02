@@ -25,7 +25,7 @@ class DataPersist(object):
         city = new_user.get('city')
         state = new_user.get('state')
         zip = new_user.get('zip')
-        phone = new_user.get('phone')
+        phone = new_user.get('phone_number')
         account = query.select_bill_account(manager_id)
         user_info = UserInfo(first_name, last_name, address, city, state, zip, phone, user, account)
 
