@@ -20,6 +20,19 @@ def sign_in():
     return render_template(url_for('sign_in'))
 
 
+@app.route('/userlink', methods=['post', 'get'])
+@app.route('/userlink.html')
+def user_link():
+    if sessionAPI.check_session() is False:
+        manager = validate.validate_manager_id(request.form('account_id'))
+        if manager is False:
+            print('incorrect manager ID')
+
+        else:
+            print('correct manager ID')
+            return render_template(url_for('user_link'))
+
+
 @app.route('/signup', methods=['post', 'get'])
 @app.route('/signup.html')
 def sign_up():

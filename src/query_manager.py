@@ -25,6 +25,10 @@ class QueryManager(object):
         args = select.select_bill_account(manager_id)
         return args
 
+    def select_manager(self, manager_id):
+        args = select.select_manager_object(manager_id)
+        return args
+
 # --------------------INSERT QUERIES--------------------------------------------
     # inserts user
     def insert_user(self, user):

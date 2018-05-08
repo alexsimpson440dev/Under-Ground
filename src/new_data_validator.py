@@ -39,6 +39,14 @@ class NewDataValidator(object):
             print(Error)
             return False
 
+    def validate_manager_id(self, manager_id):
+        manager = query.select_manager(manager_id)
+
+        if manager is None:
+            return False
+        else:
+            return manager
+
     @staticmethod
     def _validate_password(password):
         if re.search(r'[a-z]', password):
