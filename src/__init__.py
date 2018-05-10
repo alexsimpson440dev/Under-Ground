@@ -1,3 +1,3 @@
 from . import models
-from . import apis
+from . import managers
 from . import queries

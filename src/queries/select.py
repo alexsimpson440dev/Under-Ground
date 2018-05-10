@@ -29,3 +29,8 @@ class Select(object):
         session = self._get_session()
         for manager in session.query(Manager).filter(Manager.manager_id == manager_id):
             return manager
+
+    def select_user_id(self, email_address):
+        session = self._get_session()
+        for user in session.query(User.email_address).filter(User.email_address == email_address):
+            return user.user_id

@@ -1,7 +1,10 @@
 from src.query_manager import QueryManager
+from src.managers.session_manager import SessionManager
 import re
 
 query = QueryManager()
+session_manager = SessionManager()
+
 
 class NewDataValidator(object):
     def __init__(self):
@@ -46,6 +49,14 @@ class NewDataValidator(object):
             return False
         else:
             return manager
+
+    def validate_manager_token(self, token):
+        session_token = session_manager.get_session('token')
+
+        if token == session_token:
+            return True
+        else:
+            return False
 
     @staticmethod
     def _validate_password(password):

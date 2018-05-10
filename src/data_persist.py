@@ -2,6 +2,7 @@ from src.query_manager import QueryManager
 
 from src.models.table_user import User
 from src.models.table_user_info import UserInfo
+from src.models.table_manager import Manager
 
 import bcrypt
 
@@ -31,6 +32,25 @@ class DataPersist(object):
 
         query.insert_user(user)
         query.insert_user_info(user_info)
+
+    def persist_manager(self, new_manager):
+        user_name = new_manager.get('user_name')
+        email_address = new_manager.get('email_address')
+        password = new_manager.get('password1')
+        hashed_password = self._hash_password(password.encode('utf-8'))
+        user = User(user_name, email_address, hashed_password, user_type=1)
+
+        query.insert_user(user)
+        self._persist_manager(email_address)
+        # add manager with userID
+        # add bill account
+        # add user info
+
+    def _persist_manager(self, email_address):
+        email = query.select_user_id(email_address)
+        manager = Manager(email)
+
+        query.insert_manager(manager)
 
     # encrypts password
     @staticmethod

@@ -29,6 +29,10 @@ class QueryManager(object):
         args = select.select_manager_object(manager_id)
         return args
 
+    def select_user_id(self, email_address):
+        args = select.select_user_id(email_address)
+        return args
+
 # --------------------INSERT QUERIES--------------------------------------------
     # inserts user
     def insert_user(self, user):
@@ -36,6 +40,9 @@ class QueryManager(object):
 
     def insert_user_info(self, user_info):
         insert.insert_object(user_info)
+
+    def insert_manager(self, manager):
+        insert.insert_object(manager)
 
 # --------------------UPDATE QUERIES--------------------------------------------
 

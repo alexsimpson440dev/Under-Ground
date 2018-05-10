@@ -1,0 +1,28 @@
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from src.managers.session_manager import SessionManager
+
+msg = MIMEMultipart()
+session = SessionManager()
+
+
+class EmailManager(object):
+    def __init__(self):
+        self.from_email = "acc.utility.grounds@gmail.com"
+
+    def send_email(self, manager_email):
+        to_email = manager_email
+        msg['From'] = self.from_email
+        msg['To'] = to_email
+        msg['Subject'] = "Utility-Grounds Manager Token"
+
+        body = "Your new Manager Sign-Up token is, " + str(session.get_session('token'))
+        msg.attach(MIMEText(body, 'plain'))
+
+        email_server = smtplib.SMTP('smtp.gmail.com', 587)
+        email_server.starttls()
+        email_server.login(self.from_email, "bmwe92m3440")  # todo: change to env var or pull from db
+        text = msg.as_string()
+        email_server.sendmail(self.from_email, to_email, text)
+        email_server.quit()
