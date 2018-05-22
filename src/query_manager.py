@@ -37,12 +37,15 @@ class QueryManager(object):
     # inserts user
     def insert_user(self, user):
         insert.insert_object(user)
+        return
 
     def insert_user_info(self, user_info):
         insert.insert_object(user_info)
+        return
 
     def insert_manager(self, manager):
         insert.insert_object(manager)
+        return
 
 # --------------------UPDATE QUERIES--------------------------------------------
 

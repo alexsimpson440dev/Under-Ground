@@ -34,21 +34,23 @@ class DataPersist(object):
         query.insert_user_info(user_info)
 
     def persist_manager(self, new_manager):
-        user_name = new_manager.get('user_name')
-        email_address = new_manager.get('email_address')
-        password = new_manager.get('password1')
-        hashed_password = self._hash_password(password.encode('utf-8'))
-        user = User(user_name, email_address, hashed_password, user_type=1)
+            user_name = new_manager.get('user_name')
+            email_address = new_manager.get('email_address')
+            password = new_manager.get('password1')
+            hashed_password = self._hash_password(password.encode('utf-8'))
+            user = User(user_name, email_address, hashed_password)
 
-        query.insert_user(user)
-        self._persist_manager(email_address)
-        # add manager with userID
-        # add bill account
-        # add user info
+            query.insert_user(user)
 
-    def _persist_manager(self, email_address):
-        email = query.select_user_id(email_address)
-        manager = Manager(email)
+            self._persist_manager(user)
+            # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            # todo: add manager with userID
+            # todo: add bill account
+            # todo: add user info
+
+    @staticmethod
+    def _persist_manager(user):
+        manager = Manager(user)
 
         query.insert_manager(manager)
 

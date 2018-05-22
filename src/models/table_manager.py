@@ -12,7 +12,6 @@ class Manager(Base):
 
     users = relationship("User", backref=backref("manager", uselist=False))
 
-
     def __init__(self, users, manager_id=None):
         self.manager_id = manager_id
         # relationships

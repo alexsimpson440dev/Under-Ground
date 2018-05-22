@@ -45,7 +45,7 @@ def user_link():
             return render_template(url_for('user_link'))  # todo: home page
 
     except:
-        error = sys.exc_info()[0]
+        error = sys.exc_info()
         print(error)
         return redirect(url_for('sign_in'))  # todo: error page
 
@@ -71,7 +71,7 @@ def sign_up():
         else:
             return redirect(url_for('sign_up'))  # todo: sign out the current user, return to sign up
     except:
-        error = sys.exc_info()[0]
+        error = sys.exc_info()
         print(error)
         return redirect(url_for('sign_up'))
 
@@ -118,27 +118,23 @@ def validate_token():
 @app.route('/managersignup', methods=['post', 'get'])
 @app.route('/managersignup.html')
 def manager_signup():
-    try:
         if session_manager.check_session('email') is False:
             if request.method == 'POST':
                 new_manager = request.form
                 if validate.validate_user(new_manager) and validate.validate_user_info(new_manager) is True:
-                    print("Valid")
-                    persist.persist_manager(new_manager)  # todo: get from user link. Validated then passed.
+                    print("Valid Data")
+                    persist.persist_manager(new_manager)
                     return render_template(url_for('sign_in'))
                 else:
                     print("Not Valid")
-                    return render_template(url_for('sign_up'))
+                    return render_template(url_for('manager_signup'))
 
             else:
-                return render_template(url_for('sign_up'))
+                return render_template(url_for('manager_signup'))
 
         else:
-            return redirect(url_for('sign_up'))  # todo: sign out the current user, return to sign up
-    except:
-        error = sys.exc_info()[0]
-        print(error)
-        return redirect(url_for('sign_up'))
+            return redirect(url_for('manager_signup'))  # todo: sign out the current user, return to sign up
+
 
 if __name__ == '__main__':
     app.run(debug=True)
