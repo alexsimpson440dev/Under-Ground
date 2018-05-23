@@ -40,7 +40,7 @@ class DataPersist(object):
             password = new_manager.get('password1')
             hashed_password = self._hash_password(password.encode('utf-8'))
 
-            user = User(user_name, email_address, hashed_password)
+            user = User(user_name, email_address, hashed_password, user_type=1)
             manager = Manager(user)
 
             query.insert(user)
