@@ -36,7 +36,7 @@ class QueryManager(object):
             return user.user_id
 
 # --------------------INSERT QUERIES--------------------------------------------
-    # inserts user
+    # inserts an object
     def insert(self, object):
         db.session.add(object)
         return
