@@ -1,6 +1,5 @@
-from src.database import Database
 def main():
-    Database()
+    pass
 
 
 if __name__ == '__main__':

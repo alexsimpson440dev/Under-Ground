@@ -1,20 +1,20 @@
-from flask import Flask, render_template, url_for, request, redirect
-from src.query_manager import QueryManager
-from src.managers.session_manager import SessionManager
-from src.managers.email_manager import EmailManager
-from src.new_data_validator import NewDataValidator
-from src.data_persist import DataPersist
 import random
 import sys
+
+from flask import Flask, render_template, url_for, request, redirect
+
+from src.data_persist import DataPersist
+from src.managers.email_manager import EmailManager
+from src.managers.session_manager import SessionManager
+from src.new_data_validator import NewDataValidator
 
 persist = DataPersist()
 session_manager = SessionManager()
 email_manager = EmailManager()
-query = QueryManager()
 validate = NewDataValidator()
 
 app = Flask(__name__, '/static', static_folder='../static', template_folder='../templates')
-app.secret_key = "changethisplz"
+app.secret_key = "changethisplz"  # todo: change this
 
 
 @app.route('/')

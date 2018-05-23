@@ -1,10 +1,9 @@
-from src.query_manager import QueryManager
+import bcrypt
 
+from src.managers.query_manager import QueryManager
+from src.models.table_manager import Manager
 from src.models.table_user import User
 from src.models.table_user_info import UserInfo
-from src.models.table_manager import Manager
-
-import bcrypt
 
 query = QueryManager()
 
@@ -30,28 +29,28 @@ class DataPersist(object):
         account = query.select_bill_account(manager_id)
         user_info = UserInfo(first_name, last_name, address, city, state, zip, phone, user, account)
 
-        query.insert_data(user)
-        query.insert_data(user_info)
+        query.insert(user)
+        query.insert(user_info)
+        query.session_commit()
+        query.session_close()
 
     def persist_manager(self, new_manager):
             user_name = new_manager.get('user_name')
             email_address = new_manager.get('email_address')
             password = new_manager.get('password1')
             hashed_password = self._hash_password(password.encode('utf-8'))
-            user = User(user_name, email_address, hashed_password)
 
-            query.insert_data(user)
-            self._persist_manager(user)
+            user = User(user_name, email_address, hashed_password)
+            manager = Manager(user)
+
+            query.insert(user)
+            query.insert(manager)
+            query.session_commit()
+            query.session_close()
             # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             # todo: add manager with userID
             # todo: add bill account
             # todo: add user info
-
-    @staticmethod
-    def _persist_manager(user):
-        manager = Manager(user)
-
-        query.insert_data(manager)
 
     # encrypts password
     @staticmethod

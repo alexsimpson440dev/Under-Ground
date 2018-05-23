@@ -1,6 +1,7 @@
-from src.query_manager import QueryManager
-from src.managers.session_manager import SessionManager
 import re
+
+from src.managers.query_manager import QueryManager
+from src.managers.session_manager import SessionManager
 
 query = QueryManager()
 session_manager = SessionManager()
@@ -20,7 +21,7 @@ class NewDataValidator(object):
             if self._validate_email(email_address) is True:
                 if self._validate_password(password1) is True:
                     if query.select_user_name(user_name) is None:
-                        if query.select_email_address(email_address) is None:
+                        if query.select_email(email_address) is None:
                             if password1 == password2:
                                 return True
 

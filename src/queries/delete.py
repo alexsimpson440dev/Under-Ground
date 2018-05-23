@@ -1,2 +1,0 @@
-class Delete(object):
-    pass

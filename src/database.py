@@ -14,4 +14,5 @@ class Database(object):
     def __init__(self, connection_string='sqlite:///test.sqlite3'):
         self.engine = create_engine(connection_string)
         Base.metadata.create_all(self.engine)
-        self.session = sessionmaker(bind=self.engine)
+        self.Session = sessionmaker(bind=self.engine)
+        self.session = self.Session()
