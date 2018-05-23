@@ -9,11 +9,9 @@ Base.metadata.create_all(engine)'''
 
 Base = declarative_base()
 
+
 class Database(object):
     def __init__(self, connection_string='sqlite:///test.sqlite3'):
         self.engine = create_engine(connection_string)
         Base.metadata.create_all(self.engine)
-
-    def get_session(self):
-        Session = sessionmaker(bind=self.engine)
-        return Session()
+        self.session = sessionmaker(bind=self.engine)

@@ -1,13 +1,23 @@
 from src.queries.insert import Insert
 from src.queries.select import Select
 
+from src.database import Database()
+
 insert = Insert()
 select = Select()
+
+db = Database()
 
 
 class QueryManager(object):
     def __init__(self):
         pass
+
+    def commit(self):
+        db.session.commit()
+
+    def close(self):
+        db.session.close()
 
 # --------------------SELECT QUERIES--------------------------------------------
     # select user_name
@@ -35,16 +45,8 @@ class QueryManager(object):
 
 # --------------------INSERT QUERIES--------------------------------------------
     # inserts user
-    def insert_user(self, user):
-        insert.insert_object(user)
-        return
-
-    def insert_user_info(self, user_info):
-        insert.insert_object(user_info)
-        return
-
-    def insert_manager(self, manager):
-        insert.insert_object(manager)
+    def insert(self, object):
+        db.session.add(object)
         return
 
 # --------------------UPDATE QUERIES--------------------------------------------

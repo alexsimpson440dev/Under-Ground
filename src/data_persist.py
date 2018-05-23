@@ -30,8 +30,8 @@ class DataPersist(object):
         account = query.select_bill_account(manager_id)
         user_info = UserInfo(first_name, last_name, address, city, state, zip, phone, user, account)
 
-        query.insert_user(user)
-        query.insert_user_info(user_info)
+        query.insert_data(user)
+        query.insert_data(user_info)
 
     def persist_manager(self, new_manager):
             user_name = new_manager.get('user_name')
@@ -40,8 +40,7 @@ class DataPersist(object):
             hashed_password = self._hash_password(password.encode('utf-8'))
             user = User(user_name, email_address, hashed_password)
 
-            query.insert_user(user)
-
+            query.insert_data(user)
             self._persist_manager(user)
             # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             # todo: add manager with userID
@@ -52,7 +51,7 @@ class DataPersist(object):
     def _persist_manager(user):
         manager = Manager(user)
 
-        query.insert_manager(manager)
+        query.insert_data(manager)
 
     # encrypts password
     @staticmethod
