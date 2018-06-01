@@ -28,8 +28,8 @@ class QueryManager(object):
             return account
 
     def select_manager(self, manager_id):
-        for manager in db.session.query(Manager).filter(Manager.manager_id == manager_id):
-            return manager
+        for manager in db.session.query(Manager.manager_id).filter(Manager.manager_id == manager_id):
+            return manager.manager_id
 
     def select_user_id(self, email_address):
         for user in db.session.query(User.email_address).filter(User.email_address == email_address):

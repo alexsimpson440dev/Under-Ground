@@ -30,6 +30,7 @@ class DataPersist(object):
         if manager_id is None:
             account = None
         else:
+            print('id: ' + manager_id)
             account = query.select_bill_account(manager_id)
 
         first_name = new_info.get('first_name')
