@@ -34,11 +34,11 @@ def sign_up():
                     print("Valid")
                     manager_id = request.args.get('manager_id')
                     print(manager_id)
-                    persist.persist_user(new_user, manager_id=request.args.get('manager_id'))
+                    persist.persist_user(new_user, manager_id)
                     return render_template(url_for('sign_in'))
                 else:
                     print("Not Valid")
-                    return render_template(url_for('sign_up'))
+                    return redirect(url_for('sign_up'))
 
             else:
                 return render_template(url_for('sign_up'))
@@ -50,17 +50,21 @@ def sign_up():
 @app.route('/userlink', methods=['post', 'get'])
 @app.route('/userlink.html', methods=['get'])
 def user_link():
+    # Checks email and request method
     try:
         if session_manager.check_session('email') is False:
             if request.method == 'POST':
-                manager_id = validate.validate_manager_id(request.form['account_id'])
-                if manager_id is False:
-                    print('incorrect manager ID')
+                # sends the forms id to validate against manager table and redirects to signup page if valid
+                manager = validate.validate_manager_id(request.form['account_id'])
+                manager_id = manager.manager_id
 
-                else:
+                if manager_id:
                     print('correct manager ID')
                     print(manager_id)
-                    return render_template('signup.html', manager_id=manager_id)
+                    return redirect(url_for('sign_up', manager_id=manager_id))
+
+                else:
+                    print('incorrect manager ID')
 
             else:
                 return render_template(url_for('user_link'))

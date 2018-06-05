@@ -18,7 +18,7 @@ class DataPersist(object):
         password = new_user.get('password1')
         hashed_password = self._hash_password(password.encode('utf-8'))
         user = User(user_name, email_address, hashed_password)
-        user_info = self._persist_user_info(new_user, manager_id, user)
+        user_info = self._persist_user_info(new_user, user, manager_id)
 
         query.insert(user)
         query.insert(user_info)
@@ -29,8 +29,9 @@ class DataPersist(object):
     def _persist_user_info(new_info, user, manager_id):
         if manager_id is None:
             account = None
+
         else:
-            print('id: ' + manager_id)
+            # selects bill account and manager based on the managerID provided
             account = query.select_bill_account(manager_id)
 
         first_name = new_info.get('first_name')
