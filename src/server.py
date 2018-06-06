@@ -16,11 +16,15 @@ validate = NewDataValidator()
 app = Flask(__name__, '/static', static_folder='../static', template_folder='../templates')
 app.secret_key = "changethisplz"  # todo: change this
 
+# TODO: ABSTRACT METHODS FROM THE SERVER!!! TO MANY LOOPS
+# TODO: ^^^ --- PUT VERIFICATION ON PERSISTING SIDE??
+
 
 @app.route('/')
 @app.route('/signin')
 @app.route('/signin.html')
 def sign_in():
+    session_manager.clear_session()
     return render_template(url_for('sign_in'))
 
 
@@ -50,24 +54,21 @@ def sign_up():
 @app.route('/userlink', methods=['post', 'get'])
 @app.route('/userlink.html', methods=['get'])
 def user_link():
-    # Checks email and request method
     try:
-        if session_manager.check_session('email') is False:
-            if request.method == 'POST':
-                # sends the forms id to validate against manager table and redirects to signup page if valid
-                manager = validate.validate_manager_id(request.form['account_id'])
-                manager_id = manager.manager_id
+        # clears session -- continue
+        session_manager.clear_session()
+        if request.method == 'POST':
+            # sends the forms id to validate against manager table and redirects to signup page if valid
+            manager = validate.validate_manager_id(request.form['account_id'])
+            manager_id = manager.manager_id
 
-                if manager_id:
-                    print('correct manager ID')
-                    print(manager_id)
-                    return redirect(url_for('sign_up', manager_id=manager_id))
-
-                else:
-                    print('incorrect manager ID')
+            if manager_id:
+                print('correct manager ID')
+                print(manager_id)
+                return redirect(url_for('sign_up', manager_id=manager_id))
 
             else:
-                return render_template(url_for('user_link'))
+                print('incorrect manager ID')
 
         else:
             return render_template(url_for('user_link'))  # todo: home page
@@ -126,7 +127,7 @@ def manager_signup():
                 if validate.validate_user(new_manager) and validate.validate_user_info(new_manager) is True:
                     print("Valid Data")
                     persist.persist_manager(new_manager)
-                    return redirect(url_for('sign_in'))
+                    return redirect(url_for('create_bill_account'))
                 else:
                     print("Not Valid")
                     return render_template(url_for('manager_signup'))
@@ -136,6 +137,20 @@ def manager_signup():
 
         else:
             return redirect(url_for('manager_signup'))  # todo: sign out the current user, return to sign up
+
+
+@app.route('/createbillaccount', methods=['post', 'get'])
+@app.route('/createbillaccount.html', methods=['get'])
+def create_bill_account():
+    if request.method == 'POST':
+        # no current validation needed. One default account type for now
+        bill_account = request.form
+        persist.persist_bill_account(bill_account, session_manager.get_session('email'))
+
+        return render_template(url_for('sign_in'))
+
+    else:
+        return render_template(url_for('create_bill_account'))
 
 
 if __name__ == '__main__':

@@ -1,11 +1,14 @@
 import bcrypt
 
+from src.managers.session_manager import SessionManager
 from src.managers.query_manager import QueryManager
 from src.models.table_manager import Manager
 from src.models.table_user import User
 from src.models.table_user_info import UserInfo
+from src.models.table_bill_account import BillAccount
 
 query = QueryManager()
+web_session = SessionManager()
 
 
 class DataPersist(object):
@@ -24,6 +27,8 @@ class DataPersist(object):
         query.insert(user_info)
         query.session_commit()
         query.session_close()
+
+        web_session.set_user_session(email_address)
 
     @staticmethod
     def _persist_user_info(new_info, user, manager_id):
@@ -60,9 +65,23 @@ class DataPersist(object):
             query.insert(user_info)
             query.session_commit()
             query.session_close()
+
+            web_session.set_user_session(email_address)
             # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             # todo: add manager with userID
             # todo: add bill account
+
+    def persist_bill_account(self, account, email):
+        account_name = account.get('account_name')
+        account_type = 1
+        user = query.select_user(email)
+        user_id = user.user_id
+        manager = query.select_manager_uid(user_id)
+
+        bill_account = BillAccount(account_name, account_type, manager)
+        query.insert(bill_account)
+        query.session_commit()
+        query.session_close()
 
     # encrypts password
     @staticmethod
