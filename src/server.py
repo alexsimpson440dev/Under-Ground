@@ -145,12 +145,14 @@ def create_bill_account():
     if request.method == 'POST':
         # no current validation needed. One default account type for now
         bill_account = request.form
-        persist.persist_bill_account(bill_account, session_manager.get_session('email'))
+        if validate.validate_bill_config(bill_account) is True:
+            persist.persist_bill_account(bill_account, session_manager.get_session('email'))
 
-        return render_template(url_for('sign_in'))
+            return render_template(url_for('sign_in'))
 
-    else:
-        return render_template(url_for('create_bill_account'))
+        return redirect(url_for('create_bill_account'))
+
+    return render_template(url_for('create_bill_account'))
 
 
 if __name__ == '__main__':

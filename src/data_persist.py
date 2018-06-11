@@ -6,6 +6,7 @@ from src.models.table_manager import Manager
 from src.models.table_user import User
 from src.models.table_user_info import UserInfo
 from src.models.table_bill_account import BillAccount
+from src.models.table_bill_config import BillConfig
 
 query = QueryManager()
 web_session = SessionManager()
@@ -79,9 +80,23 @@ class DataPersist(object):
         manager = query.select_manager_uid(user_id)
 
         bill_account = BillAccount(account_name, account_type, manager)
+        bill_config = self._persist_bill_config(account, bill_account)
+
         query.insert(bill_account)
+        query.insert(bill_config)
         query.session_commit()
         query.session_close()
+
+    @staticmethod
+    def _persist_bill_config(account, bill_account):
+        bill_1 = account.get('bill_1')
+        bill_2 = account.get('bill_2')
+        bill_3 = account.get('bill_3')
+        bill_4 = account.get('bill_4')
+        bill_5 = account.get('bill_5')
+        bill_config = BillConfig(bill_1, bill_2, bill_3, bill_4, bill_5, bill_account)
+
+        return bill_config
 
     # encrypts password
     @staticmethod
