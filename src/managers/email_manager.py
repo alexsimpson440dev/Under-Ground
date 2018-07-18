@@ -3,7 +3,6 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from src.managers.session_manager import SessionManager
 
-msg = MIMEMultipart()
 session = SessionManager()
 
 
@@ -12,6 +11,7 @@ class EmailManager(object):
         self.from_email = "acc.utility.grounds@gmail.com"
 
     def send_email(self, manager_email):
+        msg = MIMEMultipart()
         to_email = manager_email
         msg['From'] = self.from_email
         msg['To'] = to_email

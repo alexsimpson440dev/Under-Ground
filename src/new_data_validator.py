@@ -17,7 +17,7 @@ class NewDataValidator(object):
         password1 = user.get('password1')
         password2 = user.get('password2')
 
-        if user_name != "":
+        if user_name != '':
             if self._validate_email(email_address) is True:
                 if self._validate_password(password1) is True:
                     if query.select_user_name(user_name) is None:
@@ -35,7 +35,6 @@ class NewDataValidator(object):
         try:
             if int(zip_code) and int(phone_number):
                 return True
-
             else:
                 return False
 
@@ -58,6 +57,12 @@ class NewDataValidator(object):
             return True
         else:
             return False
+
+    def validate_bill_config(self, config):
+        if config.get('bill_1') == '':
+            return False
+        else:
+            return True
 
     @staticmethod
     def _validate_password(password):

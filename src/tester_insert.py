@@ -13,7 +13,7 @@ db = Database()
 user1 = User('alex', 'email', 'pa')
 manager1 = Manager(user1)
 bill_account1 = BillAccount('account', 'personal', manager1)
-info1 = UserInfo('a', 's', '3', 'a', 'mn', 'zip', 'phone', user1, manager1, bill_account1)
+info1 = UserInfo('a', 's', '3', 'a', 'mn', 'zip', 'phone', user1, bill_account1)
 bill_config1 = BillConfig('1', '2', '3', '4', '5', bill_account1)
 bill = Bill(date(1000, 1, 1), 1, 2, 3, 4, 5, 1, 1, date(1000, 1, 1), bill_config1)
 
