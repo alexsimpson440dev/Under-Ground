@@ -28,8 +28,8 @@ def sign_in():
     return render_template(url_for('sign_in'))
 
 
-@app.route('/signup', methods=['post', 'get'])
-@app.route('/signup.html', methods=['get'])
+#@app.route('/signup', methods=['post', 'get'])
+@app.route('/sign.html?Page=3', methods=['get'])
 def sign_up():
         if session_manager.check_session('email') is False:
             if request.method == 'POST':
@@ -39,20 +39,20 @@ def sign_up():
                     manager_id = request.args.get('manager_id')
                     print(manager_id)
                     persist.persist_user(new_user, manager_id)
-                    return render_template(url_for('sign_in'))
+                    return render_template(url_for('sign_in')) # todo: move to home page
                 else:
                     print("Not Valid")
-                    return redirect(url_for('sign_up'))
+                    return redirect(url_for('sign_up', Page=0))
 
             else:
-                return render_template(url_for('sign_up'))
+                return render_template(url_for('sign_up', Page=0))
 
         else:
-            return redirect(url_for('sign_up'))  # todo: sign out the current user, return to sign up
+            return redirect(url_for('sign_up', Page=0))  # todo: sign out the current user, return to sign up
 
 
-@app.route('/userlink', methods=['post', 'get'])
-@app.route('/userlink.html', methods=['get'])
+@app.route('/managerid')
+@app.route('/sign.html')
 def user_link():
     try:
         # clears session -- continue
@@ -65,13 +65,13 @@ def user_link():
             if manager_id:
                 print('correct manager ID')
                 print(manager_id)
-                return redirect(url_for('sign_up', manager_id=manager_id))
+                return redirect(url_for('sign_up', manager_id=manager_id, Page=1))
 
             else:
                 print('incorrect manager ID')
 
         else:
-            return render_template(url_for('user_link'))  # todo: home page
+            return render_template('sign.html', Page=0)  # todo: home page
 
     except:
         error = sys.exc_info()
