@@ -28,8 +28,8 @@ def sign_in():
     return render_template(url_for('sign_in'))
 
 
-#@app.route('/signup', methods=['post', 'get'])
-@app.route('/sign.html?Page=3', methods=['get'])
+@app.route('/sign.html')
+@app.route('/sign/signup', methods=['post', 'get'])
 def sign_up():
         if session_manager.check_session('email') is False:
             if request.method == 'POST':
@@ -42,25 +42,24 @@ def sign_up():
                     return render_template(url_for('sign_in')) # todo: move to home page
                 else:
                     print("Not Valid")
-                    return redirect(url_for('sign_up', Page=0))
+                    return redirect(url_for('sign_up', Page=3))
 
             else:
-                return render_template(url_for('sign_up', Page=0))
+                return render_template('sign.html', Page=3)
 
         else:
-            return redirect(url_for('sign_up', Page=0))  # todo: sign out the current user, return to sign up
+            return redirect(url_for('sign_up'))  # todo: change this, you shouldn't be able to get here while signed in
 
 
-@app.route('/managerid')
-@app.route('/sign.html')
+@app.route('/sign/managerid', methods=['post', 'get'])
 def user_link():
-    try:
+    #try:
         # clears session -- continue
         session_manager.clear_session()
         if request.method == 'POST':
             # sends the forms id to validate against manager table and redirects to signup page if valid
             manager = validate.validate_manager_id(request.form['account_id'])
-            manager_id = manager.manager_id
+            manager_id = manager.manager_id  # todo: May through error if no manager exists
 
             if manager_id:
                 print('correct manager ID')
@@ -73,24 +72,14 @@ def user_link():
         else:
             return render_template('sign.html', Page=0)  # todo: home page
 
-    except:
-        error = sys.exc_info()
-        print(error)
-        return redirect(url_for('sign_in'))  # todo: error page
+    # except:
+    #     error = sys.exc_info()
+    #     print(error)
+    #     return redirect(url_for('sign_in'))  # todo: error page
 
 
-@app.route('/managerinfo')
-@app.route('/managerinfo.html')
-def manager_info():
-    if session_manager.check_session('email') is False:
-        return render_template(url_for('manager_info'))
-
-    else:
-        return redirect(url_for('home'))
-
-
-@app.route('/requestmanager', methods=['post', 'get'])
-@app.route('/requestmanager.html', methods=['get'])
+@app.route('/sign.html')
+@app.route('/sign/requestmanager', methods=['post', 'get'])
 def request_manager():
     if request.method == 'POST':
         session_manager.set_token_session(random.randint(100000, 999999))
@@ -100,11 +89,14 @@ def request_manager():
         return redirect(url_for('validate_token'))
 
     else:
-        return render_template(url_for('request_manager'))
+        if session_manager.check_session('email') is False:
+            return render_template('sign.html', Page=1)
+
+    return redirect(url_for('home'))  # todo: probably add
 
 
-@app.route('/validatemanager', methods=['post', 'get'])
-@app.route('/validatemanager.html', methods=['get'])
+@app.route('/sign.html')
+@app.route('/sign/validatetoken', methods=['post', 'get'])
 def validate_token():
     if request.method == 'POST':
         token = request.form.get('token')
@@ -115,25 +107,23 @@ def validate_token():
         else:
             return redirect(url_for('sign_in'))
 
-    return render_template(url_for('validate_token'))
+    return render_template('sign.html', Page=2)
 
 
-@app.route('/managersignup', methods=['post', 'get'])
-@app.route('/managersignup.html', methods=['get'])
+@app.route('/sign.html')
+@app.route('/sign/managersignup', methods=['post', 'get'])
 def manager_signup():
         if session_manager.check_session('email') is False:
             if request.method == 'POST':
                 new_manager = request.form
                 if validate.validate_user(new_manager) and validate.validate_user_info(new_manager) is True:
-                    print("Valid Data")
                     persist.persist_manager(new_manager)
                     return redirect(url_for('create_bill_account'))
                 else:
-                    print("Not Valid")
-                    return render_template(url_for('manager_signup'))
+                    return redirect(url_for('manager_signup'))
 
             else:
-                return render_template(url_for('manager_signup'))
+                return render_template('sign.html', Page=3)
 
         else:
             return redirect(url_for('manager_signup'))  # todo: sign out the current user, return to sign up
