@@ -28,7 +28,7 @@ def sign_in():
     return render_template(url_for('sign_in'))
 
 
-@app.route('/sign.html')
+@app.route('/signup.html')
 @app.route('/sign/signup', methods=['post', 'get'])
 def sign_up():
         if session_manager.check_session('email') is False:
@@ -45,7 +45,7 @@ def sign_up():
                     return redirect(url_for('sign_up', Page=3))
 
             else:
-                return render_template('sign.html', Page=3)
+                return render_template('signup.html', Page=3)
 
         else:
             return redirect(url_for('sign_up'))  # todo: change this, you shouldn't be able to get here while signed in
@@ -70,7 +70,7 @@ def user_link():
                 print('incorrect manager ID')
 
         else:
-            return render_template('sign.html', Page=0)  # todo: home page
+            return render_template('signup.html', Page=0)  # todo: home page
 
     # except:
     #     error = sys.exc_info()
@@ -78,7 +78,7 @@ def user_link():
     #     return redirect(url_for('sign_in'))  # todo: error page
 
 
-@app.route('/sign.html')
+@app.route('/signup.html')
 @app.route('/sign/requestmanager', methods=['post', 'get'])
 def request_manager():
     if request.method == 'POST':
@@ -90,12 +90,12 @@ def request_manager():
 
     else:
         if session_manager.check_session('email') is False:
-            return render_template('sign.html', Page=1)
+            return render_template('signup.html', Page=1)
 
     return redirect(url_for('home'))  # todo: probably add
 
 
-@app.route('/sign.html')
+@app.route('/signup.html')
 @app.route('/sign/validatetoken', methods=['post', 'get'])
 def validate_token():
     if request.method == 'POST':
@@ -107,10 +107,10 @@ def validate_token():
         else:
             return redirect(url_for('sign_in'))
 
-    return render_template('sign.html', Page=2)
+    return render_template('signup.html', Page=2)
 
 
-@app.route('/sign.html')
+@app.route('/signup.html')
 @app.route('/sign/managersignup', methods=['post', 'get'])
 def manager_signup():
         if session_manager.check_session('email') is False:
@@ -123,7 +123,7 @@ def manager_signup():
                     return redirect(url_for('manager_signup'))
 
             else:
-                return render_template('sign.html', Page=3)
+                return render_template('signup.html', Page=3)
 
         else:
             return redirect(url_for('manager_signup'))  # todo: sign out the current user, return to sign up

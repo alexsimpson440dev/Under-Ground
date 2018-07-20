@@ -5,6 +5,37 @@
     <title>Sign Up</title>
 </head>
 <body>
+
+    {% if Page == 0 %}
+    <div style="width: 305px; margin: auto">
+        <form action="{{ url_for('user_link') }}"method="POST">
+            <input type="text" name="account_id" placeholder="Managers Account Number"><br />
+            <input type="submit" value="Continue">
+        </form>
+        <p>Want to be an Account Manager? <a href="{{ url_for('request_manager') }}">Read More</a></p>
+    </div>
+    {% endif %}
+
+    {% if Page == 1 %}
+    <div style="width: 305px; margin: auto">
+        <form action="{{ url_for('request_manager') }}" method="POST">
+            <p>Put information here.</p>
+            <input type="text" name="email" placeholder="Email Address"><br />
+            <input type="submit" value="Send Token">
+        </form>
+    </div>
+    {% endif %}
+
+    {% if Page == 2 %}
+    <div style="width: 305px; margin: auto">
+        <form action="{{ url_for('validate_token') }}" method="POST">
+            <input type="password" name="token" placeholder="Manager Token"><br />
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    {% endif %}
+
+    {% if Page == 3 %}
     <div style="width: 305px; margin: auto">
         <form method="post">
             <input type="text" name="user_name" placeholder="User Name"><br />
@@ -27,5 +58,7 @@
             <p>Already a member? <a href="signin.html">Login</a></p>
         </form>
     </div>
+    {% endif %}
+
 </body>
 </html>
