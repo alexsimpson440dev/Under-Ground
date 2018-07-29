@@ -39,7 +39,7 @@ def sign_up():
                     manager_id = request.args.get('manager_id')
                     print(manager_id)
                     persist.persist_user(new_user, manager_id)
-                    return render_template(url_for('sign_in')) # todo: move to home page
+                    return render_template(url_for('sign_in'))  # todo: move to home page
                 else:
                     print("Not Valid")
                     return redirect(url_for('sign_up', Page=3))
