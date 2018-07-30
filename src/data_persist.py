@@ -29,7 +29,7 @@ class DataPersist(object):
         query.session_commit()
         query.session_close()
 
-        web_session.set_user_session(email_address)
+        web_session.set_session('email', email_address)
 
     @staticmethod
     def _persist_user_info(new_info, user, manager_id):
@@ -67,7 +67,7 @@ class DataPersist(object):
             query.session_commit()
             query.session_close()
 
-            web_session.set_user_session(email_address)
+            web_session.set_session('email', email_address)
             # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             # todo: add manager with userID
             # todo: add bill account
@@ -75,7 +75,7 @@ class DataPersist(object):
     def persist_bill_account(self, account, email):
         account_name = account.get('account_name')
         account_type = 1
-        user = query.select_user(email)
+        user = query.select_email(email)
         user_id = user.user_id
         manager = query.select_manager_uid(user_id)
 

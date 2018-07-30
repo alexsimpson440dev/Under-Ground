@@ -4,7 +4,7 @@ from src.managers.query_manager import QueryManager
 from src.managers.session_manager import SessionManager
 
 query = QueryManager()
-session_manager = SessionManager()
+session = SessionManager()
 
 
 class NewDataValidator(object):
@@ -51,7 +51,7 @@ class NewDataValidator(object):
             return manager
 
     def validate_manager_token(self, token):
-        session_token = session_manager.get_session('token')
+        session_token = session.get_session('token')
 
         if token == session_token:
             return True

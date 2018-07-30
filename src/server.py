@@ -25,10 +25,8 @@ app.secret_key = "changethisplz"  # todo: change this
 @app.route('/signin.html')
 def sign_in():
     if session.check_session('email'):
-        print("Log: Active session - " + str(session.get_session('email')))
         return redirect(url_for('index'))
 
-    print("Log: No Active session, returning to Sign In")
     return render_template(url_for('sign_in'))
 
 
@@ -64,7 +62,6 @@ def sign_up():
 def user_link():
     #try:
         # clears session -- continue
-        session.clear_session()
         if request.method == 'POST':
             # sends the forms id to validate against manager table and redirects to signup page if valid
             manager = validate.validate_manager_id(request.form['account_id'])
@@ -91,7 +88,7 @@ def user_link():
 @app.route('/sign/requestmanager', methods=['post', 'get'])
 def request_manager():
     if request.method == 'POST':
-        session.set_token_session(random.randint(100000, 999999))
+        session.set_session('token', random.randint(100000, 999999))
         email = request.form.get('email')
         email_manager.send_email(email)
 
