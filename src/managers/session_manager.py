@@ -24,8 +24,10 @@ class SessionManager(object):
     # if the session is valid, returns the email
     def get_session(self, key):
         if self.check_session(key) is False:
+            print("Log: No session for " + key)
             return
 
+        print("Log: Active session for " + key)
         return str(session[key])
 
     def clear_session(self):

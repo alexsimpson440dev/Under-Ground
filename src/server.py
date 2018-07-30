@@ -9,7 +9,7 @@ from src.managers.session_manager import SessionManager
 from src.new_data_validator import NewDataValidator
 
 persist = DataPersist()
-session_manager = SessionManager()
+session = SessionManager()
 email_manager = EmailManager()
 validate = NewDataValidator()
 
@@ -24,14 +24,23 @@ app.secret_key = "changethisplz"  # todo: change this
 @app.route('/signin')
 @app.route('/signin.html')
 def sign_in():
-    session_manager.clear_session()
+    if session.check_session('email'):
+        print("Log: Active session - " + str(session.get_session('email')))
+        return redirect(url_for('index'))
+
+    print("Log: No Active session, returning to Sign In")
     return render_template(url_for('sign_in'))
+
+
+@app.route('/index.html')
+def index():
+    return render_template(url_for('index'))
 
 
 @app.route('/signup.html')
 @app.route('/sign/signup', methods=['post', 'get'])
 def sign_up():
-        if session_manager.check_session('email') is False:
+        if session.check_session('email') is False:
             if request.method == 'POST':
                 new_user = request.form
                 if validate.validate_user(new_user) and validate.validate_user_info(new_user) is True:
@@ -48,14 +57,14 @@ def sign_up():
                 return render_template('signup.html', Page=3)
 
         else:
-            return redirect(url_for('sign_up'))  # todo: change this, you shouldn't be able to get here while signed in
+            return redirect(url_for('index'))
 
 
 @app.route('/sign/managerid', methods=['post', 'get'])
 def user_link():
     #try:
         # clears session -- continue
-        session_manager.clear_session()
+        session.clear_session()
         if request.method == 'POST':
             # sends the forms id to validate against manager table and redirects to signup page if valid
             manager = validate.validate_manager_id(request.form['account_id'])
@@ -82,14 +91,14 @@ def user_link():
 @app.route('/sign/requestmanager', methods=['post', 'get'])
 def request_manager():
     if request.method == 'POST':
-        session_manager.set_token_session(random.randint(100000, 999999))
+        session.set_token_session(random.randint(100000, 999999))
         email = request.form.get('email')
         email_manager.send_email(email)
 
         return redirect(url_for('validate_token'))
 
     else:
-        if session_manager.check_session('email') is False:
+        if session.check_session('email') is False:
             return render_template('signup.html', Page=1)
 
     return redirect(url_for('home'))  # todo: probably add
@@ -113,7 +122,7 @@ def validate_token():
 @app.route('/signup.html')
 @app.route('/sign/managersignup', methods=['post', 'get'])
 def manager_signup():
-        if session_manager.check_session('email') is False:
+        if session.check_session('email') is False:
             if request.method == 'POST':
                 new_manager = request.form
                 if validate.validate_user(new_manager) and validate.validate_user_info(new_manager) is True:
@@ -136,13 +145,17 @@ def create_bill_account():
         # no current validation needed. One default account type for now
         bill_account = request.form
         if validate.validate_bill_config(bill_account) is True:
-            persist.persist_bill_account(bill_account, session_manager.get_session('email'))
+            persist.persist_bill_account(bill_account, session.get_session('email'))
 
             return render_template(url_for('sign_in'))
 
         return redirect(url_for('create_bill_account'))
 
     return render_template(url_for('create_bill_account'))
+
+
+def sign_out():
+    session.clear_session()
 
 
 if __name__ == '__main__':
