@@ -67,7 +67,7 @@ class NewDataValidator(object):
     @staticmethod
     def _validate_password(password):
         if re.search(r'[a-z]', password):
-            if re.search(r'[1-9]', password):
+            if re.search(r'[0-9]', password):
                 if len(password) >= 8:
                     return True
 
