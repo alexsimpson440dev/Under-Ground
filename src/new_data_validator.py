@@ -1,4 +1,5 @@
 import re
+import bcrypt
 
 from src.managers.query_manager import QueryManager
 from src.managers.session_manager import SessionManager
@@ -17,12 +18,21 @@ class NewDataValidator(object):
         user = query.select_email(email_address)
 
         if user:
-            print('Log: Credentials are Valid')
-            return True
+            if self.bcrypt_decrypt(password, user.password):
+                print('Log: Credentials are Valid')
+                return True
 
         else:
             print('Log: Credentials are not Valid')
             return False
+
+    @staticmethod
+    def bcrypt_decrypt(password, hashed_password):
+        if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
+            return True
+        else:
+            return False
+
 
 # -------------------------Sign Up-------------------------
     def validate_user(self, user):
