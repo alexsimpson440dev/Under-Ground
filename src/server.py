@@ -21,8 +21,7 @@ app.secret_key = "changethisplz"  # todo: change this
 
 
 @app.route('/', methods=['get', 'post'])
-@app.route('/signin')
-@app.route('/signin.html')
+@app.route('/signin.html', methods=['get', 'post'])
 def sign_in():
     if session.check_session('email'):
         return redirect(url_for('index'))
@@ -79,12 +78,12 @@ def sign_up():
 
 @app.route('/sign/managerid', methods=['post', 'get'])
 def user_link():
-    #try:
+    # try:
         # clears session -- continue
         if request.method == 'POST':
             # sends the forms id to validate against manager table and redirects to signup page if valid
             manager = validate.validate_manager_id(request.form['account_id'])
-            manager_id = manager.manager_id  # todo: May through error if no manager exists
+            manager_id = manager.manager_id  # todo: May throw error if no manager exists
 
             if manager_id:
                 print('correct manager ID')
@@ -95,7 +94,7 @@ def user_link():
                 print('incorrect manager ID')
 
         else:
-            return render_template('signup.html', Page=0)  # todo: home page
+            return render_template('signup.html', Page=0)
 
     # except:
     #     error = sys.exc_info()
@@ -117,12 +116,13 @@ def request_manager():
         if session.check_session('email') is False:
             return render_template('signup.html', Page=1)
 
-    return redirect(url_for('home'))  # todo: probably add
+    return redirect(url_for('index'))
 
 
 @app.route('/signup.html')
 @app.route('/sign/validatetoken', methods=['post', 'get'])
 def validate_token():
+    need_session('token')  # possibly set in here, check this because if so it will fail
     if request.method == 'POST':
         token = request.form.get('token')
 
@@ -138,25 +138,27 @@ def validate_token():
 @app.route('/signup.html')
 @app.route('/sign/managersignup', methods=['post', 'get'])
 def manager_signup():
-        if session.check_session('email') is False:
-            if request.method == 'POST':
-                new_manager = request.form
-                if validate.validate_user(new_manager) and validate.validate_user_info(new_manager) is True:
-                    persist.persist_manager(new_manager)
-                    return redirect(url_for('create_bill_account'))
-                else:
-                    return redirect(url_for('manager_signup'))
-
+    need_session('token')
+    if session.check_session('email') is False:
+        if request.method == 'POST':
+            new_manager = request.form
+            if validate.validate_user(new_manager) and validate.validate_user_info(new_manager) is True:
+                persist.persist_manager(new_manager)
+                return redirect(url_for('create_bill_account'))
             else:
-                return render_template('signup.html', Page=3)
+                return redirect(url_for('manager_signup'))
 
         else:
-            return redirect(url_for('manager_signup'))  # todo: sign out the current user, return to sign up
+            return render_template('signup.html', Page=3)
+
+    else:
+        return redirect(url_for('manager_signup'))  # todo: sign out the current user, return to sign up
 
 
 @app.route('/createbillaccount', methods=['post', 'get'])
 @app.route('/createbillaccount.html', methods=['get'])
 def create_bill_account():
+    need_session('token')
     if request.method == 'POST':
         # no current validation needed. One default account type for now
         bill_account = request.form
@@ -168,6 +170,11 @@ def create_bill_account():
         return redirect(url_for('create_bill_account'))
 
     return render_template(url_for('create_bill_account'))
+
+
+def need_session(key):
+    if session.check_session(key) is False:
+        redirect(url_for('sign_in'))
 
 
 def sign_out():

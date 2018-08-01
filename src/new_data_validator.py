@@ -20,6 +20,7 @@ class NewDataValidator(object):
         if user:
             if self.bcrypt_decrypt(password, user.password):
                 print('Log: Credentials are Valid')
+                session.set_session('email', email_address)
                 return True
 
         else:
@@ -28,6 +29,7 @@ class NewDataValidator(object):
 
     @staticmethod
     def bcrypt_decrypt(password, hashed_password):
+
         if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
             return True
         else:
