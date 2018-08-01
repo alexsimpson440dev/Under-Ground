@@ -16,12 +16,13 @@ class NewDataValidator(object):
         password = credentials.get('password')
         user = query.select_email(email_address)
 
-        if user is None:
+        if user:
+            print('Log: Credentials are Valid')
+            return True
+
+        else:
             print('Log: Credentials are not Valid')
             return False
-
-        print(user.email_address)
-        print(user.password)
 
 # -------------------------Sign Up-------------------------
     def validate_user(self, user):

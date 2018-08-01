@@ -27,7 +27,7 @@ class SessionManager(object):
             print('Log: Active Session ' + key + ' - ' + str(session[key]))
             return True
 
-        print("Log: No session for " + key)
+        print("Log: No Active Session for " + key)
         return False
 
     # if the session is valid, returns the email
@@ -38,5 +38,5 @@ class SessionManager(object):
         return str(session[key])
 
     def clear_session(self):
-        print('Log: Removing Sessions')
+        print('Log: Removing Active Sessions')
         session.clear()

@@ -29,14 +29,15 @@ def sign_in():
 
     if request.method == 'POST':
         credentials = request.form
-        print(credentials.get('password'))
-        validate.validate_sign_in(credentials)
+        if validate.validate_sign_in(credentials):
+            return render_template(url_for('index'))
 
-        # check for valid username
-        # if valid, check that password matches
-        # if both, sign in
-        # else, return false - error logging in username or password is incorrect
-        return render_template(url_for('index'))
+        else:
+            return redirect(url_for('sign_in'))
+            # check for valid username
+            # if valid, check that password matches
+            # if both, sign in
+            # else, return false - error logging in username or password is incorrect
 
     return render_template(url_for('sign_in'))
 
