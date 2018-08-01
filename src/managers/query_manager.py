@@ -17,11 +17,11 @@ class QueryManager(object):
 # Returns a filtered object
 # --------------------SELECT QUERIES--------------------------------------------
     def select_email(self, email_address):
-        for user in db.session.query(User.email_address).filter(User.email_address == email_address):
+        for user in db.session.query(User).filter(User.email_address == email_address):
             return user
 
     def select_user_name(self, user_name):
-        for user in db.session.query(User.user_name).filter(User.user_name == user_name):
+        for user in db.session.query(User).filter(User.user_name == user_name):
             return user
 
     def select_bill_account(self, manager_id):

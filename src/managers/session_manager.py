@@ -38,5 +38,5 @@ class SessionManager(object):
         return str(session[key])
 
     def clear_session(self):
-        print(str('Log: Removing Sessions'))
+        print('Log: Removing Sessions')
         session.clear()

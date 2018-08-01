@@ -11,6 +11,19 @@ class NewDataValidator(object):
     def __init__(self):
         pass
 
+    def validate_sign_in(self, credentials):
+        email_address = credentials.get('email_address')
+        password = credentials.get('password')
+        user = query.select_email(email_address)
+
+        if user is None:
+            print('Log: Credentials are not Valid')
+            return False
+
+        print(user.email_address)
+        print(user.password)
+
+# -------------------------Sign Up-------------------------
     def validate_user(self, user):
         user_name = user.get('user_name')
         email_address = user.get('email_address')

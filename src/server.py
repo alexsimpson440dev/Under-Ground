@@ -20,18 +20,36 @@ app.secret_key = "changethisplz"  # todo: change this
 # TODO: ^^^ --- PUT VERIFICATION ON PERSISTING SIDE??
 
 
-@app.route('/')
+@app.route('/', methods=['get', 'post'])
 @app.route('/signin')
 @app.route('/signin.html')
 def sign_in():
     if session.check_session('email'):
         return redirect(url_for('index'))
 
+    if request.method == 'POST':
+        credentials = request.form
+        print(credentials.get('password'))
+        validate.validate_sign_in(credentials)
+
+        # check for valid username
+        # if valid, check that password matches
+        # if both, sign in
+        # else, return false - error logging in username or password is incorrect
+        return render_template(url_for('index'))
+
     return render_template(url_for('sign_in'))
 
 
-@app.route('/index.html')
+@app.route('/index.html', methods=['get', 'post'])
 def index():
+    if session.check_session('email') is False:
+        return redirect(url_for('sign_in'))
+
+    if request.method == 'POST':
+        sign_out()
+        return redirect(url_for('sign_in'))
+
     return render_template(url_for('index'))
 
 
@@ -152,6 +170,7 @@ def create_bill_account():
 
 
 def sign_out():
+    print('Log: User ' + session.get_session('email') + ' is signing out.')
     session.clear_session()
 
 
