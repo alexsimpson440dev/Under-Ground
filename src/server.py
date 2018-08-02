@@ -78,6 +78,8 @@ def sign_up():
 
 @app.route('/sign/managerid', methods=['post', 'get'])
 def user_link():
+        if session.check_session('email'):
+            return redirect(url_for('index'))
     # try:
         # clears session -- continue
         if request.method == 'POST':
@@ -105,6 +107,9 @@ def user_link():
 @app.route('/signup.html')
 @app.route('/sign/requestmanager', methods=['post', 'get'])
 def request_manager():
+    if session.check_session('email'):
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         session.set_session('token', random.randint(100000, 999999))
         email = request.form.get('email')
@@ -122,7 +127,9 @@ def request_manager():
 @app.route('/signup.html')
 @app.route('/sign/validatetoken', methods=['post', 'get'])
 def validate_token():
-    need_session('token')  # possibly set in here, check this because if so it will fail
+    if session.check_session('token') is False:
+        return redirect(url_for('sign_in'))
+
     if request.method == 'POST':
         token = request.form.get('token')
 
