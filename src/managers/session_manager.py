@@ -37,6 +37,6 @@ class SessionManager(object):
 
         return str(session[key])
 
-    def clear_session(self):
-        print('Log: Removing Active Sessions')
-        session.clear()
+    def clear_session(self, key):
+        print('Log: Removing Active Session for ' + key)
+        session.pop(key, None)

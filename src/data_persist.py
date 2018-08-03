@@ -68,9 +68,6 @@ class DataPersist(object):
             query.session_close()
 
             web_session.set_session('email', email_address)
-            # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            # todo: add manager with userID
-            # todo: add bill account
 
     def persist_bill_account(self, account, email):
         account_name = account.get('account_name')
@@ -86,6 +83,8 @@ class DataPersist(object):
         query.insert(bill_config)
         query.session_commit()
         query.session_close()
+
+        web_session.clear_session('token')
 
     @staticmethod
     def _persist_bill_config(account, bill_account):

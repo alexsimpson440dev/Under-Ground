@@ -145,7 +145,9 @@ def validate_token():
 @app.route('/signup.html')
 @app.route('/sign/managersignup', methods=['post', 'get'])
 def manager_signup():
-    need_session('token')
+    if session.check_session('token') is False:
+        return redirect(url_for('sign_in'))
+
     if session.check_session('email') is False:
         if request.method == 'POST':
             new_manager = request.form
@@ -155,19 +157,19 @@ def manager_signup():
             else:
                 return redirect(url_for('manager_signup'))
 
-        else:
-            return render_template('signup.html', Page=3)
+        return render_template('signup.html', Page=3)
 
     else:
-        return redirect(url_for('manager_signup'))  # todo: sign out the current user, return to sign up
+        return redirect(url_for('index'))
 
 
 @app.route('/createbillaccount', methods=['post', 'get'])
 @app.route('/createbillaccount.html', methods=['get'])
 def create_bill_account():
-    need_session('token')
+    if session.check_session('token') is False:
+        return redirect(url_for('sign_in'))
+
     if request.method == 'POST':
-        # no current validation needed. One default account type for now
         bill_account = request.form
         if validate.validate_bill_config(bill_account) is True:
             persist.persist_bill_account(bill_account, session.get_session('email'))
@@ -179,14 +181,9 @@ def create_bill_account():
     return render_template(url_for('create_bill_account'))
 
 
-def need_session(key):
-    if session.check_session(key) is False:
-        redirect(url_for('sign_in'))
-
-
 def sign_out():
     print('Log: User ' + session.get_session('email') + ' is signing out.')
-    session.clear_session()
+    session.clear_session('email')
 
 
 if __name__ == '__main__':
