@@ -60,13 +60,10 @@ def sign_up():
             if request.method == 'POST':
                 new_user = request.form
                 if validate.validate_user(new_user) and validate.validate_user_info(new_user) is True:
-                    print("Valid")
                     manager_id = request.args.get('manager_id')
-                    print(manager_id)
                     persist.persist_user(new_user, manager_id)
                     return render_template(url_for('sign_in'))  # todo: move to home page
                 else:
-                    print("Not Valid")
                     return redirect(url_for('sign_up', Page=3))
 
             else:
@@ -88,12 +85,12 @@ def user_link():
             manager_id = manager.manager_id  # todo: May throw error if no manager exists
 
             if manager_id:
-                print('correct manager ID')
+                logger('Log: ManagerID found')
                 print(manager_id)
                 return redirect(url_for('sign_up', manager_id=manager_id, Page=1))
 
             else:
-                print('incorrect manager ID')
+                logger('Log: ManagerID not found')
 
         else:
             return render_template('signup.html', Page=0)
@@ -166,24 +163,33 @@ def manager_signup():
 @app.route('/createbillaccount', methods=['post', 'get'])
 @app.route('/createbillaccount.html', methods=['get'])
 def create_bill_account():
-    if session.check_session('token') is False:
-        return redirect(url_for('sign_in'))
+    try:
+        if session.check_session('token') is False:
+            return redirect(url_for('sign_in'))
 
-    if request.method == 'POST':
-        bill_account = request.form
-        if validate.validate_bill_config(bill_account) is True:
-            persist.persist_bill_account(bill_account, session.get_session('email'))
+        if request.method == 'POST':
+            bill_account = request.form
+            if validate.validate_bill_config(bill_account) is True:
+                persist.persist_bill_account(bill_account, session.get_session('email'))
 
-            return render_template(url_for('sign_in'))
+                return render_template(url_for('sign_in'))
 
-        return redirect(url_for('create_bill_account'))
+            return redirect(url_for('create_bill_account'))
 
-    return render_template(url_for('create_bill_account'))
+        return render_template(url_for('create_bill_account'))
+
+    except:
+        logger('Log: Error Creating Bill Account - createbillaccount.html')
+        return render_template('error.html')
 
 
 def sign_out():
-    print('Log: User ' + session.get_session('email') + ' is signing out.')
+    logger('Log: User ' + session.get_session('email') + ' is signing out.')
     session.clear_session('email')
+
+
+def logger(message):
+    print(message)
 
 
 if __name__ == '__main__':
