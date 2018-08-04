@@ -23,39 +23,54 @@ app.secret_key = "changethisplz"  # todo: change this
 @app.route('/', methods=['get', 'post'])
 @app.route('/signin.html', methods=['get', 'post'])
 def sign_in():
-    if session.check_session('email'):
-        return redirect(url_for('index'))
+    try:
+        if session.check_session('email'):
+            return redirect(url_for('index'))
 
-    if request.method == 'POST':
-        credentials = request.form
-        if validate.validate_sign_in(credentials):
-            return render_template(url_for('index'))
+        if request.method == 'POST':
+            credentials = request.form
+            if validate.validate_sign_in(credentials):
+                return render_template(url_for('index'))
 
-        else:
-            return redirect(url_for('sign_in'))
-            # check for valid username
-            # if valid, check that password matches
-            # if both, sign in
-            # else, return false - error logging in username or password is incorrect
+            else:
+                return redirect(url_for('sign_in'))
+                # check for valid username
+                # if valid, check that password matches
+                # if both, sign in
+                # else, return false - error logging in username or password is incorrect
 
-    return render_template(url_for('sign_in'))
+        return render_template(url_for('sign_in'))
+
+    except:
+        error = sys.exc_info()
+        logger('Log E Error in sign_in')
+        logger('Log E ' + error)
+        return render_template('error.html')
 
 
 @app.route('/index.html', methods=['get', 'post'])
 def index():
-    if session.check_session('email') is False:
-        return redirect(url_for('sign_in'))
+    try:
+        if session.check_session('email') is False:
+            return redirect(url_for('sign_in'))
 
-    if request.method == 'POST':
-        sign_out()
-        return redirect(url_for('sign_in'))
+        if request.method == 'POST':
+            sign_out()
+            return redirect(url_for('sign_in'))
 
-    return render_template(url_for('index'))
+        return render_template(url_for('index'))
+
+    except:
+        error = sys.exc_info()
+        logger('Log E Error in index')
+        logger('Log E ' + error)
+        return render_template('error.html')
 
 
 @app.route('/signup.html')
 @app.route('/sign/signup', methods=['post', 'get'])
 def sign_up():
+    try:
         if session.check_session('email') is False:
             if request.method == 'POST':
                 new_user = request.form
@@ -72,13 +87,19 @@ def sign_up():
         else:
             return redirect(url_for('index'))
 
+    except:
+        error = sys.exc_info()
+        logger('Log E Error in sign_up')
+        logger('Log E ' + error)
+        return render_template('error.html')
+
 
 @app.route('/sign/managerid', methods=['post', 'get'])
 def user_link():
+    try:
         if session.check_session('email'):
             return redirect(url_for('index'))
-    # try:
-        # clears session -- continue
+
         if request.method == 'POST':
             # sends the forms id to validate against manager table and redirects to signup page if valid
             manager = validate.validate_manager_id(request.form['account_id'])
@@ -94,69 +115,91 @@ def user_link():
         else:
             return render_template('signup.html', Page=0)
 
-    # except:
-    #     error = sys.exc_info()
-    #     print(error)
-    #     return redirect(url_for('sign_in'))  # todo: error page
+    except:
+        error = sys.exc_info()
+        logger('Log E Error in user_link')
+        logger('Log E ' + error)
+        return render_template('error.html')
 
 
 @app.route('/signup.html')
 @app.route('/sign/requestmanager', methods=['post', 'get'])
 def request_manager():
-    if session.check_session('email'):
+    try:
+        if session.check_session('email'):
+            return redirect(url_for('index'))
+
+        if request.method == 'POST':
+            session.set_session('token', random.randint(100000, 999999))
+            email = request.form.get('email')
+            email_manager.send_email(email)
+
+            return redirect(url_for('validate_token'))
+
+        else:
+            if session.check_session('email') is False:
+                return render_template('signup.html', Page=1)
+
         return redirect(url_for('index'))
 
-    if request.method == 'POST':
-        session.set_session('token', random.randint(100000, 999999))
-        email = request.form.get('email')
-        email_manager.send_email(email)
-
-        return redirect(url_for('validate_token'))
-
-    else:
-        if session.check_session('email') is False:
-            return render_template('signup.html', Page=1)
-
-    return redirect(url_for('index'))
+    except:
+        error = sys.exc_info()
+        logger('Log E Error in request_manager')
+        logger('Log E ' + error)
+        return render_template('error.html')
 
 
 @app.route('/signup.html')
 @app.route('/sign/validatetoken', methods=['post', 'get'])
 def validate_token():
-    if session.check_session('token') is False:
-        return redirect(url_for('sign_in'))
-
-    if request.method == 'POST':
-        token = request.form.get('token')
-
-        if validate.validate_manager_token(token) is True:
-            return redirect(url_for('manager_signup'))
-
-        else:
+    try:
+        if session.check_session('token') is False:
             return redirect(url_for('sign_in'))
 
-    return render_template('signup.html', Page=2)
+        if request.method == 'POST':
+            token = request.form.get('token')
+
+            if validate.validate_manager_token(token) is True:
+                return redirect(url_for('manager_signup'))
+
+            else:
+                return redirect(url_for('sign_in'))
+
+        return render_template('signup.html', Page=2)
+
+    except:
+        error = sys.exc_info()
+        logger('Log E Error in validate_token')
+        logger('Log E ' + error)
+        return render_template('error.html')
 
 
 @app.route('/signup.html')
 @app.route('/sign/managersignup', methods=['post', 'get'])
 def manager_signup():
-    if session.check_session('token') is False:
-        return redirect(url_for('sign_in'))
+    try:
+        if session.check_session('token') is False:
+            return redirect(url_for('sign_in'))
 
-    if session.check_session('email') is False:
-        if request.method == 'POST':
-            new_manager = request.form
-            if validate.validate_user(new_manager) and validate.validate_user_info(new_manager) is True:
-                persist.persist_manager(new_manager)
-                return redirect(url_for('create_bill_account'))
-            else:
-                return redirect(url_for('manager_signup'))
+        if session.check_session('email') is False:
+            if request.method == 'POST':
+                new_manager = request.form
+                if validate.validate_user(new_manager) and validate.validate_user_info(new_manager) is True:
+                    persist.persist_manager(new_manager)
+                    return redirect(url_for('create_bill_account'))
+                else:
+                    return redirect(url_for('manager_signup'))
 
-        return render_template('signup.html', Page=3)
+            return render_template('signup.html', Page=3)
 
-    else:
-        return redirect(url_for('index'))
+        else:
+            return redirect(url_for('index'))
+
+    except:
+        error = sys.exc_info()
+        logger('Log E Error in manager_signup')
+        logger('Log E ' + error)
+        return render_template('error.html')
 
 
 @app.route('/createbillaccount', methods=['post', 'get'])
@@ -178,7 +221,9 @@ def create_bill_account():
         return render_template(url_for('create_bill_account'))
 
     except:
-        logger('Log: Error Creating Bill Account - createbillaccount.html')
+        error = sys.exc_info()
+        logger('Log E Error in create_bill_account')
+        logger('Log E ' + error)
         return render_template('error.html')
 
 
