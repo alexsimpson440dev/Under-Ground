@@ -84,8 +84,6 @@ class DataPersist(object):
         query.session_commit()
         query.session_close()
 
-        web_session.clear_session('token')
-
     @staticmethod
     def _persist_bill_config(account, bill_account):
         bill_1 = account.get('bill_1')
@@ -94,6 +92,8 @@ class DataPersist(object):
         bill_4 = account.get('bill_4')
         bill_5 = account.get('bill_5')
         bill_config = BillConfig(bill_1, bill_2, bill_3, bill_4, bill_5, bill_account)
+
+        web_session.clear_session('token')
 
         return bill_config
 

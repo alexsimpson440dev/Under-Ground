@@ -34,10 +34,6 @@ def sign_in():
 
             else:
                 return redirect(url_for('sign_in'))
-                # check for valid username
-                # if valid, check that password matches
-                # if both, sign in
-                # else, return false - error logging in username or password is incorrect
 
         return render_template(url_for('sign_in'))
 
@@ -214,7 +210,7 @@ def create_bill_account():
             if validate.validate_bill_config(bill_account) is True:
                 persist.persist_bill_account(bill_account, session.get_session('email'))
 
-                return render_template(url_for('sign_in'))
+                return render_template(url_for('index'))
 
             return redirect(url_for('create_bill_account'))
 
