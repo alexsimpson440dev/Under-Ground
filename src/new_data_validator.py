@@ -19,12 +19,12 @@ class NewDataValidator(object):
 
         if user:
             if self.bcrypt_decrypt(password, user.password):
-                print('Log: Credentials are Valid')
+                self.logger('Log: Credentials are Valid')
                 session.set_session('email', email_address)
                 return True
 
         else:
-            print('Log: Credentials are not Valid')
+            self.logger('Log: Credentials are not Valid')
             return False
 
     @staticmethod
@@ -115,3 +115,7 @@ class NewDataValidator(object):
         else:
             print('log: email is not valid')
             return False
+
+    @staticmethod
+    def logger(message):
+        print(message)

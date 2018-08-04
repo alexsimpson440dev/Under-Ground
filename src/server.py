@@ -86,7 +86,6 @@ def user_link():
 
             if manager_id:
                 logger('Log: ManagerID found')
-                print(manager_id)
                 return redirect(url_for('sign_up', manager_id=manager_id, Page=1))
 
             else:

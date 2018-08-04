@@ -104,3 +104,7 @@ class DataPersist(object):
         hashed_password = hashed_password.decode('utf-8')
 
         return hashed_password
+
+    @staticmethod
+    def logger(message):
+        print(message)

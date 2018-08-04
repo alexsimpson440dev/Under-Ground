@@ -7,27 +7,17 @@ class SessionManager(object):
 
     # sets a session
     def set_session(self, key, value):
-        print('Log: New Session ' + key + ' - ' + str(value))
+        self.logger('Log: New Session ' + key + ' - ' + str(value))
         session[key] = value
-
-    # old session adding todo: remove after testing
-    '''def set_user_session(self, email_address):
-        print('Log: Set session Email - ' + email_address)
-        session['email'] = email_address
-
-    # sets a manager token
-    def set_token_session(self, token):
-        session['token'] = token'''
-    # ---------------------------------------------------------
 
     # returns True or False if depending on the session contents
     def check_session(self, key):
-        print('Log: Checking ' + key + ' Session')
+        self.logger('Log: Checking ' + key + ' Session')
         if key in session:
-            print('Log: Active Session ' + key + ' - ' + str(session[key]))
+            self.logger('Log: Active Session ' + key + ' - ' + str(session[key]))
             return True
 
-        print("Log: No Active Session for " + key)
+        self.logger("Log: No Active Session for " + key)
         return False
 
     # if the session is valid, returns the email
@@ -38,5 +28,9 @@ class SessionManager(object):
         return str(session[key])
 
     def clear_session(self, key):
-        print('Log: Removing Active Session for ' + key)
+        self.logger('Log: Removing Active Session for ' + key)
         session.pop(key, None)
+
+    @staticmethod
+    def logger(message):
+        print(message)
