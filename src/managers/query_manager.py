@@ -24,6 +24,10 @@ class QueryManager(object):
         for user in db.session.query(User).filter(User.user_name == user_name):
             return user
 
+    def select_user_info(self, user_id):
+        for user_info in db.session.query(UserInfo).filter(UserInfo.user_id == user_id):
+            return user_info
+
     def select_bill_account(self, manager_id):
         for account in db.session.query(BillAccount).filter(BillAccount.manager_id == manager_id):
             return account
@@ -35,6 +39,10 @@ class QueryManager(object):
     def select_manager_uid(self, user_id):
         for manager in db.session.query(Manager).filter(Manager.user_id == user_id):
             return manager
+
+    def select_bill_config(self, account_id):
+        for config in db.session.query(BillConfig).filter(BillConfig.account_id == account_id):
+            return config
 
 # --------------------INSERT QUERIES--------------------------------------------
     # inserts an object

@@ -5,11 +5,13 @@ from flask import Flask, render_template, url_for, request, redirect
 
 from src.data_persist import DataPersist
 from src.managers.email_manager import EmailManager
+from src.managers.query_manager import QueryManager
 from src.managers.session_manager import SessionManager
 from src.new_data_validator import NewDataValidator
 
 persist = DataPersist()
 session = SessionManager()
+query = QueryManager()
 email_manager = EmailManager()
 validate = NewDataValidator()
 
@@ -30,7 +32,7 @@ def sign_in():
         if request.method == 'POST':
             credentials = request.form
             if validate.validate_sign_in(credentials):
-                return render_template(url_for('index'))
+                return redirect(url_for('index'))
 
             else:
                 return redirect(url_for('sign_in'))
@@ -38,7 +40,7 @@ def sign_in():
         return render_template(url_for('sign_in'))
 
     except:
-        error = sys.exc_info()
+        error = str(sys.exc_info())
         logger('Log E Error in sign_in')
         logger('Log E ' + error)
         return render_template('error.html')
@@ -54,10 +56,11 @@ def index():
             sign_out()
             return redirect(url_for('sign_in'))
 
+        bill()
         return render_template(url_for('index'))
 
     except:
-        error = sys.exc_info()
+        error = str(sys.exc_info())
         logger('Log E Error in index')
         logger('Log E ' + error)
         return render_template('error.html')
@@ -73,18 +76,16 @@ def sign_up():
                 if validate.validate_user(new_user) and validate.validate_user_info(new_user) is True:
                     manager_id = request.args.get('manager_id')
                     persist.persist_user(new_user, manager_id)
-                    return render_template(url_for('sign_in'))  # todo: move to home page
+                    return redirect(url_for('index'))  # todo: move to home page
                 else:
                     return redirect(url_for('sign_up', Page=3))
 
-            else:
-                return render_template('signup.html', Page=3)
+            return render_template('signup.html', Page=3)
 
-        else:
-            return redirect(url_for('index'))
+        return render_template(url_for('index'))
 
     except:
-        error = sys.exc_info()
+        error = str(sys.exc_info())
         logger('Log E Error in sign_up')
         logger('Log E ' + error)
         return render_template('error.html')
@@ -112,7 +113,7 @@ def user_link():
             return render_template('signup.html', Page=0)
 
     except:
-        error = sys.exc_info()
+        error = str(sys.exc_info())
         logger('Log E Error in user_link')
         logger('Log E ' + error)
         return render_template('error.html')
@@ -139,7 +140,7 @@ def request_manager():
         return redirect(url_for('index'))
 
     except:
-        error = sys.exc_info()
+        error = str(sys.exc_info())
         logger('Log E Error in request_manager')
         logger('Log E ' + error)
         return render_template('error.html')
@@ -164,7 +165,7 @@ def validate_token():
         return render_template('signup.html', Page=2)
 
     except:
-        error = sys.exc_info()
+        error = str(sys.exc_info())
         logger('Log E Error in validate_token')
         logger('Log E ' + error)
         return render_template('error.html')
@@ -192,7 +193,7 @@ def manager_signup():
             return redirect(url_for('index'))
 
     except:
-        error = sys.exc_info()
+        error = str(sys.exc_info())
         logger('Log E Error in manager_signup')
         logger('Log E ' + error)
         return render_template('error.html')
@@ -217,10 +218,35 @@ def create_bill_account():
         return render_template(url_for('create_bill_account'))
 
     except:
-        error = sys.exc_info()
+        error = str(sys.exc_info())
         logger('Log E Error in create_bill_account')
         logger('Log E ' + error)
         return render_template('error.html')
+
+
+@app.route('/bill')
+@app.route('/bill.html')
+def bill():
+    email_address = session.get_session('email')
+    user = query.select_email(email_address)
+    # regular user
+    if user.user_type == 3:
+        user_info = query.select_user_info(user.user_id)
+        account_id = user_info.account_id
+        config = query.select_bill_config(account_id)
+        bill_names = [config.bill_1, config.bill_2, config.bill_3, config.bill_4, config.bill_5]
+        for item in bill_names:
+            if item:
+                print(item)
+
+    # get email from session, check user_type
+    # if user_type is user, get account_id from user_info
+    # ----go to bottom for flow
+    # if user_type is manager, get user_id, get manager_id, then get account id ?Join? - write query for this
+    # ----go to bottom for flow
+
+    # pull bill config with account_id
+    # -----if a bill name is empty, don't pull ?query for this?
 
 
 def sign_out():
