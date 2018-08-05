@@ -23,6 +23,9 @@ class NewDataValidator(object):
                 session.set_session('email', email_address)
                 return True
 
+            else:
+                self.logger('Log: Credentials are not Valid')
+                return False
         else:
             self.logger('Log: Credentials are not Valid')
             return False

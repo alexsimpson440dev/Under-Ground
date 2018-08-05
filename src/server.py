@@ -56,7 +56,6 @@ def index():
             sign_out()
             return redirect(url_for('sign_in'))
 
-        bill()
         return render_template(url_for('index'))
 
     except:
@@ -238,6 +237,9 @@ def bill():
         for item in bill_names:
             if item:
                 print(item)
+        return render_template(url_for('bill'), bill_names=bill_names)
+
+    return render_template(url_for('bill'))
 
     # get email from session, check user_type
     # if user_type is user, get account_id from user_info

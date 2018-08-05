@@ -6,11 +6,10 @@
 </head>
 <body>
     <div>
-        <!--
-        for each item in bill config
-           display a bill line
-           write bill name
-        -->
+        <h1>Bills</h1>
+        {% for name in bill_names %}
+            {{ name }}
+        {% endfor %}
     </div>
 </body>
 </html>
