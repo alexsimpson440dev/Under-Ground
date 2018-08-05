@@ -22,7 +22,27 @@ app.secret_key = "changethisplz"  # todo: change this
 # TODO: ^^^ --- PUT VERIFICATION ON PERSISTING SIDE??
 
 
-@app.route('/', methods=['get', 'post'])
+@app.route('/')
+@app.route('/index.html', methods=['get', 'post'])
+def index():
+    try:
+        if session.check_session('email') is False:
+            return redirect(url_for('sign_in'))
+
+        if request.method == 'POST':
+            sign_out()
+            return redirect(url_for('sign_in'))
+
+        return render_template(url_for('index'))
+
+    except:
+        error = str(sys.exc_info())
+        logger('Log E Error in index')
+        logger('Log E ' + error)
+        return render_template('error.html')
+
+
+@app.route('/sign.html')
 @app.route('/signin.html', methods=['get', 'post'])
 def sign_in():
     try:
@@ -42,25 +62,6 @@ def sign_in():
     except:
         error = str(sys.exc_info())
         logger('Log E Error in sign_in')
-        logger('Log E ' + error)
-        return render_template('error.html')
-
-
-@app.route('/index.html', methods=['get', 'post'])
-def index():
-    try:
-        if session.check_session('email') is False:
-            return redirect(url_for('sign_in'))
-
-        if request.method == 'POST':
-            sign_out()
-            return redirect(url_for('sign_in'))
-
-        return render_template(url_for('index'))
-
-    except:
-        error = str(sys.exc_info())
-        logger('Log E Error in index')
         logger('Log E ' + error)
         return render_template('error.html')
 
@@ -234,9 +235,8 @@ def bill():
         account_id = user_info.account_id
         config = query.select_bill_config(account_id)
         bill_names = [config.bill_1, config.bill_2, config.bill_3, config.bill_4, config.bill_5]
-        for item in bill_names:
-            if item:
-                print(item)
+
+        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} retrieved.')
         return render_template(url_for('bill'), bill_names=bill_names)
 
     return render_template(url_for('bill'))
