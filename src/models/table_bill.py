@@ -21,7 +21,6 @@ class Bill(Base):
 
     bill_configs = relationship("BillConfig", backref="bill")
 
-
     def __init__(self, date, bill_c_1, bill_c_2, bill_c_3, bill_c_4, bill_c_5, total_pp, total, due_date, bill_configs, bill_id=None):
         self.bill_id = bill_id
         self.date = date

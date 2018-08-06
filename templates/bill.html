@@ -7,9 +7,13 @@
 <body>
     <div>
         <h1>Bills</h1>
-        {% for name in bill_names %}
-            {{ name }}
-        {% endfor %}
+        <table>
+            <tr>
+            {% for name in bill_names %}
+                <th> {{ name }} </th>
+            {% endfor %}}
+            </tr>
+        </table>
     </div>
 </body>
 </html>
