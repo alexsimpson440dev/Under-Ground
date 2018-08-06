@@ -228,13 +228,14 @@ def create_bill_account():
 def bill():
     email_address = session.get_session('email')
     user = query.select_email(email_address)
+
     # regular user
     if user.user_type == 3:
         account_id = query.select_user_info(user.user_id).account_id
         bill_names = format_bill_config(account_id)
 
-        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} and User Credentials retrieved.')
-        return render_template(url_for('bill'), bill_names=bill_names, edit=False)
+        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with User Credentials retrieved.')
+        return render_template(url_for('bill'), config=bill_names, edit=False)
 
     # this would be expected to change when a manager has more than one account
     # manager
@@ -244,8 +245,8 @@ def bill():
         account_id = query.select_bill_account(manager_id).account_id
         bill_names = format_bill_config(account_id)
 
-        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} and Manager Credentials retrieved.')
-        return render_template(url_for('bill'), bill_names=bill_names, edit=True)
+        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with Manager Credentials retrieved.')
+        return render_template(url_for('bill'), config=bill_names, edit=True)
 
     return render_template(url_for('bill'))
 
@@ -258,8 +259,7 @@ def bill():
 
 def format_bill_config(account_id):
     config = query.select_bill_config(account_id)
-    bill_names = ['Date', config.bill_1, config.bill_2, config.bill_3, config.bill_4, config.bill_5, 'Total',
-                  'Due Date', 'Paid']
+    bill_names = [config.bill_1, config.bill_2, config.bill_3, config.bill_4, config.bill_5]
     while '' in bill_names:
         bill_names.remove('')
 

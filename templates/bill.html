@@ -9,11 +9,31 @@
         <h1>Bills</h1>
         <table>
             <tr>
-            {% for name in bill_names %}
-                <th> {{ name }} </th>
-            {% endfor %}
+                <th>Date</th>
+                {% for value in config %}
+                    <th>{{ value }}</th>
+                {% endfor %}
+                <th>Total</th>
+                <th>Due Date</th>
+                <th>paid</th>
+                {% if edit == True %}
+                    <th><button>Edits</button></th>
+                {% endif %}
             </tr>
         </table>
+
     </div>
+    {% if edit == True %}
+        <div style="width: 305px; margin: auto">
+            <form method="post">
+                {% for value in config %}
+                    <input type="text" name="{{ value }}" placeholder="{{ value }}"><br />
+                {% endfor %}
+                    <input type="date" name="due_date">
+
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    {% endif %}
 </body>
 </html>
