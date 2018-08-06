@@ -80,7 +80,7 @@ class NewDataValidator(object):
 
         if manager is None:
             self.logger('Log: Invalid ManagerID')
-            return False
+            return
         else:
             self.logger('Log: Valid ManagerID')
             return manager

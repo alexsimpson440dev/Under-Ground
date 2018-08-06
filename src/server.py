@@ -76,7 +76,7 @@ def sign_up():
                 if validate.validate_user(new_user) and validate.validate_user_info(new_user) is True:
                     manager_id = request.args.get('manager_id')
                     persist.persist_user(new_user, manager_id)
-                    return redirect(url_for('index'))  # todo: move to home page
+                    return redirect(url_for('index'))
                 else:
                     return redirect(url_for('sign_up', Page=3))
 
@@ -100,17 +100,16 @@ def user_link():
         if request.method == 'POST':
             # sends the forms id to validate against manager table and redirects to signup page if valid
             manager = validate.validate_manager_id(request.form['account_id'])
-            manager_id = manager.manager_id  # todo: May throw error if no manager exists
-
-            if manager_id:
-                logger('Log: ManagerID found')
-                return redirect(url_for('sign_up', manager_id=manager_id, Page=1))
+            if manager:
+                manager_id = manager.manager_id  # todo: May throw error if no manager exists
+                if manager_id:
+                    logger('Log: ManagerID found')
+                    return redirect(url_for('sign_up', manager_id=manager_id, Page=1))
 
             else:
                 logger('Log: ManagerID not found')
 
-        else:
-            return render_template('signup.html', Page=0)
+        return render_template('signup.html', Page=0)
 
     except:
         error = str(sys.exc_info())
