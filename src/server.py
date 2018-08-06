@@ -237,6 +237,9 @@ def bill():
         bill_names = ['Date', config.bill_1, config.bill_2, config.bill_3, config.bill_4, config.bill_5, 'Total',
                       'Due Date', 'Paid']
 
+        while '' in bill_names:
+            bill_names.remove('')
+
         logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} retrieved.')
         return render_template(url_for('bill'), bill_names=bill_names)
 
