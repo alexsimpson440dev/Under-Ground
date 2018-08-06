@@ -230,28 +230,40 @@ def bill():
     user = query.select_email(email_address)
     # regular user
     if user.user_type == 3:
-        user_info = query.select_user_info(user.user_id)
-        account_id = user_info.account_id
-        config = query.select_bill_config(account_id)
-        bill_names = ['Date', config.bill_1, config.bill_2, config.bill_3, config.bill_4, config.bill_5, 'Total',
-                      'Due Date', 'Paid']
+        account_id = query.select_user_info(user.user_id).account_id
+        bill_names = format_bill_config(account_id)
 
-        while '' in bill_names:
-            bill_names.remove('')
+        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} and User Credentials retrieved.')
+        return render_template(url_for('bill'), bill_names=bill_names, edit=False)
 
-        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} retrieved.')
-        return render_template(url_for('bill'), bill_names=bill_names)
+    # this would be expected to change when a manager has more than one account
+    # manager
+    if user.user_type == 1:
+        user_id = user.user_id
+        manager_id = query.select_manager_uid(user_id).manager_id
+        account_id = query.select_bill_account(manager_id).account_id
+        bill_names = format_bill_config(account_id)
+
+        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} and Manager Credentials retrieved.')
+        return render_template(url_for('bill'), bill_names=bill_names, edit=True)
 
     return render_template(url_for('bill'))
 
-    # get email from session, check user_type
-    # if user_type is user, get account_id from user_info
-    # ----go to bottom for flow
     # if user_type is manager, get user_id, get manager_id, then get account id ?Join? - write query for this
     # ----go to bottom for flow
 
     # pull bill config with account_id
     # -----if a bill name is empty, don't pull ?query for this?
+
+
+def format_bill_config(account_id):
+    config = query.select_bill_config(account_id)
+    bill_names = ['Date', config.bill_1, config.bill_2, config.bill_3, config.bill_4, config.bill_5, 'Total',
+                  'Due Date', 'Paid']
+    while '' in bill_names:
+        bill_names.remove('')
+
+    return bill_names
 
 
 def sign_out():
