@@ -17,7 +17,7 @@ bill_account1 = BillAccount('account', 'personal', manager1)
 info1 = UserInfo('a', 's', '3', 'a', 'mn', 'zip', 'phone', user1, bill_account1)
 bill_config1 = BillConfig('1', '2', '3', '4', '5', bill_account1)
 bill = Bill(date(1000, 1, 1), 1, 2, 3, 4, 5, 1, 1, date(1000, 1, 1), bill_config1)
-paid = Paid(1, False, bill)
+paid = Paid(1, bill)
 
 db.session.add(user1)
 db.session.add(manager1)

@@ -52,9 +52,11 @@ class NewDataValidator(object):
                     if query.select_user_name(user_name) is None:
                         if query.select_email(email_address) is None:
                             if password1 == password2:
+                                self.logger('Log: Valid User Credentials')
                                 return True
 
         else:
+            self.logger('Log: Invalid User Credentials')
             return False
 
     def validate_user_info(self, user_info):
@@ -63,34 +65,42 @@ class NewDataValidator(object):
 
         try:
             if int(zip_code) and int(phone_number):
+                self.logger('Log: Valid Zip and Phone Number')
                 return True
             else:
+                self.logger('Log: Invalid Values for Zip or Phone Number')
                 return False
 
         except ValueError as Error:
-            print(Error)
+            self.logger(f'Log E {Error}')
             return False
 
     def validate_manager_id(self, manager_id):
         manager = query.select_manager(manager_id)
 
         if manager is None:
+            self.logger('Log: Invalid ManagerID')
             return False
         else:
+            self.logger('Log: Valid ManagerID')
             return manager
 
     def validate_manager_token(self, token):
         session_token = session.get_session('token')
 
         if token == session_token:
+            self.logger('Log: Valid Manager Token')
             return True
         else:
+            self.logger('Log: Invalid Manager Token')
             return False
 
     def validate_bill_config(self, config):
         if config.get('bill_1') == '':
+            self.logger('Log: Invalid Bill Configuration - Bill 1 missing')
             return False
         else:
+            self.logger('Log: Valid Bill Configuration')
             return True
 
     @staticmethod
@@ -101,13 +111,10 @@ class NewDataValidator(object):
                     return True
 
                 else:
-                    print('log: password not long enough, must be 8 characters long')
                     return False
             else:
-                print('log: password must contain a number')
                 return False
         else:
-            print('log: password must contain a letter')
             return False
 
     @staticmethod
@@ -116,7 +123,6 @@ class NewDataValidator(object):
             return True
 
         else:
-            print('log: email is not valid')
             return False
 
     @staticmethod

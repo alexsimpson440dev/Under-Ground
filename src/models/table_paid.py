@@ -15,7 +15,7 @@ class Paid(Base):
 
     bills = relationship("Bill", backref=backref("paid", uselist=False))
 
-    def __init__(self, user_id, paid, bills, date_paid=None, paid_id=None):
+    def __init__(self, user_id, bills, paid=False, date_paid=None, paid_id=None):
         self.paid_id = paid_id
         self.user_id = user_id
         self.paid = paid
