@@ -224,8 +224,12 @@ def create_bill_account():
 
 
 @app.route('/bill')
-@app.route('/bill.html')
+@app.route('/bill.html', methods=['get', 'post'])
 def bill():
+    if request.method == 'POST':
+        bills = request.form
+        add_bill(bills)
+
     email_address = session.get_session('email')
     user = query.select_email(email_address)
 
@@ -250,12 +254,6 @@ def bill():
 
     return render_template(url_for('bill'))
 
-    # if user_type is manager, get user_id, get manager_id, then get account id ?Join? - write query for this
-    # ----go to bottom for flow
-
-    # pull bill config with account_id
-    # -----if a bill name is empty, don't pull ?query for this?
-
 
 def format_bill_config(account_id):
     config = query.select_bill_config(account_id)
@@ -264,6 +262,10 @@ def format_bill_config(account_id):
         bill_names.remove('')
 
     return bill_names
+
+
+def add_bill(bills):
+    print(bills)
 
 
 def sign_out():
