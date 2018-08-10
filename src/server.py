@@ -26,7 +26,7 @@ app.secret_key = "changethisplz"  # todo: change this
 @app.route('/index.html', methods=['get', 'post'])
 def index():
     try:
-        if session.check_session('email') is False:
+        if not session.check_session('email'):
             return redirect(url_for('sign_in'))
 
         if request.method == 'POST':
@@ -70,7 +70,7 @@ def sign_in():
 @app.route('/sign/signup', methods=['post', 'get'])
 def sign_up():
     try:
-        if session.check_session('email') is False:
+        if not session.check_session('email'):
             if request.method == 'POST':
                 new_user = request.form
                 if validate.validate_user(new_user) and validate.validate_user_info(new_user) is True:
@@ -149,7 +149,7 @@ def request_manager():
 @app.route('/sign/validatetoken', methods=['post', 'get'])
 def validate_token():
     try:
-        if session.check_session('token') is False:
+        if not session.check_session('token'):
             return redirect(url_for('sign_in'))
 
         if request.method == 'POST':
@@ -174,7 +174,7 @@ def validate_token():
 @app.route('/sign/managersignup', methods=['post', 'get'])
 def manager_signup():
     try:
-        if session.check_session('token') is False:
+        if not session.check_session('token'):
             return redirect(url_for('sign_in'))
 
         if session.check_session('email') is False:
@@ -202,7 +202,7 @@ def manager_signup():
 @app.route('/createbillaccount.html', methods=['get'])
 def create_bill_account():
     try:
-        if session.check_session('token') is False:
+        if not session.check_session('token'):
             return redirect(url_for('sign_in'))
 
         if request.method == 'POST':
@@ -226,33 +226,43 @@ def create_bill_account():
 @app.route('/bill')
 @app.route('/bill.html', methods=['get', 'post'])
 def bill():
-    if request.method == 'POST':
-        bills = request.form
-        add_bill(bills)
+    try:
+        if not session.check_session('email'):
+            return redirect(url_for('sign_in'))
 
-    email_address = session.get_session('email')
-    user = query.select_email(email_address)
+        if request.method == 'POST':
+            bills = request.form
+            add_bill(bills)
 
-    # regular user
-    if user.user_type == 3:
-        account_id = query.select_user_info(user.user_id).account_id
-        bill_names = format_bill_config(account_id)
+        email_address = session.get_session('email')
+        user = query.select_email(email_address)
 
-        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with User Credentials retrieved.')
-        return render_template(url_for('bill'), config=bill_names, edit=False)
+        # regular user
+        if user.user_type == 3:
+            account_id = query.select_user_info(user.user_id).account_id
+            bill_names = format_bill_config(account_id)
 
-    # this would be expected to change when a manager has more than one account
-    # manager
-    if user.user_type == 1:
-        user_id = user.user_id
-        manager_id = query.select_manager_uid(user_id).manager_id
-        account_id = query.select_bill_account(manager_id).account_id
-        bill_names = format_bill_config(account_id)
+            logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with User Credentials retrieved.')
+            return render_template(url_for('bill'), config=bill_names, edit=False)
 
-        logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with Manager Credentials retrieved.')
-        return render_template(url_for('bill'), config=bill_names, edit=True)
+        # this would be expected to change when a manager has more than one account
+        # manager
+        if user.user_type == 1:
+            user_id = user.user_id
+            manager_id = query.select_manager_uid(user_id).manager_id
+            account_id = query.select_bill_account(manager_id).account_id
+            bill_names = format_bill_config(account_id)
 
-    return render_template(url_for('bill'))
+            logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with Manager Credentials retrieved.')
+            return render_template(url_for('bill'), config=bill_names, edit=True)
+
+        return render_template(url_for('bill'))
+
+    except:
+        error = str(sys.exc_info())
+        logger('Log E Error in bill')
+        logger('Log E ' + error)
+        return render_template('error.html')
 
 
 def format_bill_config(account_id):
@@ -265,7 +275,16 @@ def format_bill_config(account_id):
 
 
 def add_bill(bills):
-    print(bills)
+    bills = bills.to_dict()
+
+    # validate that these bills are valid
+    if validate.validate_bills(bills):
+        pass
+        # do persist, return true
+
+    else:
+        pass
+        # do not persist, return false
 
 
 def sign_out():

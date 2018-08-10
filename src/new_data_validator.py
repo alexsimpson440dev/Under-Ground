@@ -1,5 +1,6 @@
 import re
 import bcrypt
+import numbers
 
 from src.managers.query_manager import QueryManager
 from src.managers.session_manager import SessionManager
@@ -102,6 +103,24 @@ class NewDataValidator(object):
         else:
             self.logger('Log: Valid Bill Configuration')
             return True
+
+# ---------------------Bills-------------------------
+
+    def validate_bills(self, bills):
+        # bills dictionary
+        due_date = bills.pop('due_date')
+        print(due_date)
+
+        for key, value in bills.items():
+            try:
+                float(value)
+
+            except ValueError as Error:
+                self.logger(f'Log: {Error} - Not an excepted value')
+                return False
+
+        self.logger(f'Log: All Bill values are valid.')
+        return True
 
     @staticmethod
     def _validate_password(password):
