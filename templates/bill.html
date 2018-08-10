@@ -29,7 +29,7 @@
                 {% for value in config %}
                     <input type="text" name="{{ value }}" placeholder="{{ value }}"><br />
                 {% endfor %}
-                    <input type="date" name="due_date" placeholder="yyyy-mm-dd">
+                    <input type="date" name="due_date" placeholder="yyyy-mm-dd" minlength="10" maxlength="10">
 
                 <button type="submit">Add</button>
             </form>

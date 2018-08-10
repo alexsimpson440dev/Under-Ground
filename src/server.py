@@ -101,7 +101,7 @@ def user_link():
             # sends the forms id to validate against manager table and redirects to signup page if valid
             manager = validate.validate_manager_id(request.form['account_id'])
             if manager:
-                manager_id = manager.manager_id  # todo: May throw error if no manager exists
+                manager_id = manager.manager_id
                 if manager_id:
                     logger('Log: ManagerID found')
                     return redirect(url_for('sign_up', manager_id=manager_id, Page=1))
@@ -226,7 +226,7 @@ def create_bill_account():
 @app.route('/bill')
 @app.route('/bill.html', methods=['get', 'post'])
 def bill():
-    try:
+    # try:
         if not session.check_session('email'):
             return redirect(url_for('sign_in'))
 
@@ -258,11 +258,11 @@ def bill():
 
         return render_template(url_for('bill'))
 
-    except:
-        error = str(sys.exc_info())
-        logger('Log E Error in bill')
-        logger('Log E ' + error)
-        return render_template('error.html')
+    # except:
+    #     error = str(sys.exc_info())
+    #     logger('Log E Error in bill')
+    #     logger('Log E ' + error)
+    #     return render_template('error.html')
 
 
 def format_bill_config(account_id):

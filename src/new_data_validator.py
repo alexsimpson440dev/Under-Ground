@@ -47,14 +47,15 @@ class NewDataValidator(object):
         password1 = user.get('password1')
         password2 = user.get('password2')
 
-        if user_name != '':
-            if self._validate_email(email_address) is True:
-                if self._validate_password(password1) is True:
-                    if query.select_user_name(user_name) is None:
-                        if query.select_email(email_address) is None:
-                            if password1 == password2:
-                                self.logger('Log: Valid User Credentials')
-                                return True
+        if user_name != '' \
+            and self._validate_email(email_address)\
+            and self._validate_password(password1)\
+            and query.select_user_name(user_name) is None\
+            and query.select_email(email_address) is None\
+                and password1 == password2:
+
+            self.logger('Log: Valid User Credentials')
+            return True
 
         else:
             self.logger('Log: Invalid User Credentials')
@@ -107,41 +108,51 @@ class NewDataValidator(object):
 # ---------------------Bills-------------------------
 
     def validate_bills(self, bills):
-        # bills dictionary
         due_date = bills.pop('due_date')
-        print(due_date)
+        raw_due_date = due_date.replace('-', '')
 
-        for key, value in bills.items():
-            try:
-                float(value)
+        # checks for valid bill values
+        if raw_due_date.isnumeric() and re.search(r'.+-.+-', due_date):
+            for key, value in bills.items():
+                try:
+                    float(value)
 
-            except ValueError as Error:
-                self.logger(f'Log: {Error} - Not an excepted value')
-                return False
+                except ValueError as Error:
+                    self.logger(f'Log E {Error} - Not an excepted value')
+                    return False
 
-        self.logger(f'Log: All Bill values are valid.')
-        return True
+            self.logger(f'Log: All Bill values are valid.')
+            return True
 
+        else:
+            self.logger('Log E Invalid Due Date value')
+            return False
+
+# ----------------------Static Methods-----------------
+
+    # todo: Could probably put this into one simpler method / one if statement
     @staticmethod
     def _validate_password(password):
-        if re.search(r'[a-z]', password):
-            if re.search(r'[0-9]', password):
-                if len(password) >= 8:
-                    return True
+        if re.search(r'[a-z]', password)\
+                and re.search(r'[0-9]', password)\
+                and re.search(r'[A-Z]', password)\
+                and len(password) >= 8:
 
-                else:
-                    return False
-            else:
-                return False
+            NewDataValidator.logger('Log: Valid Password')
+            return True
+
         else:
+            NewDataValidator.logger('Log: Invalid Password')
             return False
 
     @staticmethod
     def _validate_email(email):
         if re.search(r'.+@.+\.com', email):
+            NewDataValidator.logger('Log: Valid Email')
             return True
 
         else:
+            NewDataValidator.logger('Log: Invalid Email')
             return False
 
     @staticmethod
