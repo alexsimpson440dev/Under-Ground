@@ -7,6 +7,8 @@ from src.models.table_user import User
 from src.models.table_user_info import UserInfo
 from src.models.table_bill_account import BillAccount
 from src.models.table_bill_config import BillConfig
+from src.models.table_bill import Bill
+from src.models.table_paid import Paid
 
 query = QueryManager()
 web_session = SessionManager()
@@ -83,6 +85,10 @@ class DataPersist(object):
         query.insert(bill_config)
         query.session_commit()
         query.session_close()
+
+    def persist_bill(self, bills):
+        # need to get other bill information
+        pass
 
     @staticmethod
     def _persist_bill_config(account, bill_account):

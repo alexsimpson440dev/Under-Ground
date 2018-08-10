@@ -125,7 +125,7 @@ class NewDataValidator(object):
             return True
 
         else:
-            self.logger('Log E Invalid Due Date value')
+            self.logger('Log: Invalid Due Date value')
             return False
 
 # ----------------------Static Methods-----------------
