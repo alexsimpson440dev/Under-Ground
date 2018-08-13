@@ -1,5 +1,6 @@
 from src.models import User, UserInfo, Manager, BillAccount, Bill, BillConfig
 from src.database import Database
+from sqlalchemy import select
 
 db = Database()
 
@@ -27,6 +28,10 @@ class QueryManager(object):
     def select_user_info(self, user_id):
         for user_info in db.session.query(UserInfo).filter(UserInfo.user_id == user_id):
             return user_info
+
+    def select_user_count_by_account_id(self, account_id):
+        user_info = db.session.query(select([UserInfo.account_id]).where(UserInfo.account_id == account_id))
+        return user_info
 
     def select_bill_account(self, manager_id):
         for account in db.session.query(BillAccount).filter(BillAccount.manager_id == manager_id):

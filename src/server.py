@@ -226,16 +226,16 @@ def create_bill_account():
 @app.route('/bill')
 @app.route('/bill.html', methods=['get', 'post'])
 def bill():
-    try:
+    # try:
         if not session.check_session('email'):
             return redirect(url_for('sign_in'))
 
-        if request.method == 'POST':
-            bills = request.form
-            add_bill(bills)
-
         email_address = session.get_session('email')
         user = query.select_email(email_address)
+
+        if request.method == 'POST':
+            bills = request.form
+            add_bill(bills, user.user_id)
 
         # regular user
         if user.user_type == 3:
@@ -258,11 +258,11 @@ def bill():
 
         return render_template(url_for('bill'))
 
-    except:
-        error = str(sys.exc_info())
-        logger('Log E Error in bill')
-        logger('Log E ' + error)
-        return render_template('error.html')
+    # except:
+    #     error = str(sys.exc_info())
+    #     logger('Log E Error in bill')
+    #     logger('Log E ' + error)
+    #     return render_template('error.html')
 
 
 def format_bill_config(account_id):
@@ -274,12 +274,12 @@ def format_bill_config(account_id):
     return bill_names
 
 
-def add_bill(bills):
+def add_bill(bills, user_id):
     bills = bills.to_dict()
 
     # validate that these bills are valid
     if validate.validate_bills(bills):
-        pass
+        persist.persist_bill(bills, user_id)
         # do persist, return true
 
     else:

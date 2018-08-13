@@ -121,6 +121,7 @@ class NewDataValidator(object):
                     self.logger(f'Log E {Error} - Not an excepted value')
                     return False
 
+            bills['due_date'] = due_date
             self.logger(f'Log: All Bill values are valid.')
             return True
 

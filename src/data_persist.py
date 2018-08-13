@@ -1,4 +1,5 @@
 import bcrypt
+from decimal import Decimal
 
 from src.managers.session_manager import SessionManager
 from src.managers.query_manager import QueryManager
@@ -86,9 +87,20 @@ class DataPersist(object):
         query.session_commit()
         query.session_close()
 
-    def persist_bill(self, bills):
-        # need to get other bill information
-        pass
+    def persist_bill(self, bills, user_id):
+        bills = list(bills.values())
+        manager_id = query.select_manager_uid(user_id).manager_id
+        account_id = query.select_bill_account(manager_id).account_id
+        user_count = query.select_user_count_by_account_id(account_id).count()
+
+        bill_c_1 = bills[0]
+        bill_c_2 = bills[1]
+        bill_c_3 = bills[2]
+        bill_c_4 = bills[3]
+        bill_c_5 = bills[4]
+        due_date = bills[5]
+        total = Decimal(bill_c_1) + Decimal(bill_c_2) + Decimal(bill_c_3) + Decimal(bill_c_4) + Decimal(bill_c_5)
+        total_pp = round(Decimal(total)/Decimal(user_count), 2)
 
     @staticmethod
     def _persist_bill_config(account, bill_account):
