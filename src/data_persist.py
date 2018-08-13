@@ -1,5 +1,6 @@
 import bcrypt
 from decimal import Decimal
+from datetime import datetime
 
 from src.managers.session_manager import SessionManager
 from src.managers.query_manager import QueryManager
@@ -93,14 +94,24 @@ class DataPersist(object):
         account_id = query.select_bill_account(manager_id).account_id
         user_count = query.select_user_count_by_account_id(account_id).count()
 
+        bill_config = query.select_bill_config(account_id)
+        date = datetime.today().strftime('%Y-%m-%d')
+        print(date)
         bill_c_1 = bills[0]
         bill_c_2 = bills[1]
         bill_c_3 = bills[2]
         bill_c_4 = bills[3]
         bill_c_5 = bills[4]
         due_date = bills[5]
+        due_date = datetime.strptime(due_date, '%Y-%m-%d')
+        print(due_date)
         total = Decimal(bill_c_1) + Decimal(bill_c_2) + Decimal(bill_c_3) + Decimal(bill_c_4) + Decimal(bill_c_5)
         total_pp = round(Decimal(total)/Decimal(user_count), 2)
+        bill = Bill(date, bill_c_1, bill_c_2, bill_c_3, bill_c_4, bill_c_5, total_pp, total, due_date, bill_configs=bill_config)
+
+        query.insert(bill)
+        query.session_commit()
+        query.session_close()
 
     @staticmethod
     def _persist_bill_config(account, bill_account):
