@@ -109,6 +109,7 @@ class DataPersist(object):
         bill = Bill(date, bill_c_1, bill_c_2, bill_c_3, bill_c_4, bill_c_5, total_pp, total, due_date, bill_configs=bill_config)
 
         query.insert(bill)
+        self._persist_paid(account_id, bill)
         query.session_commit()
         query.session_close()
 
@@ -124,6 +125,13 @@ class DataPersist(object):
         web_session.clear_session('token')
 
         return bill_config
+
+    @staticmethod
+    def _persist_paid(account_id, bill):
+        users = query.select_user_count_by_account_id(account_id)
+        for user in users:
+            paid = Paid(user[1], bill)
+            query.insert(paid)
 
     # encrypts password
     @staticmethod

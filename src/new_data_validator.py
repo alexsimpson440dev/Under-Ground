@@ -163,7 +163,7 @@ class NewDataValidator(object):
     @staticmethod
     def _valid_date(date_value):
         try:
-            datetime.strftime(date_value, '%Y-%m-%d')
+            datetime.strptime(date_value, '%Y-%m-%d')
             return True
 
         except ValueError:

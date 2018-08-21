@@ -30,7 +30,7 @@ class QueryManager(object):
             return user_info
 
     def select_user_count_by_account_id(self, account_id):
-        user_info = db.session.query(select([UserInfo.account_id]).where(UserInfo.account_id == account_id))
+        user_info = db.session.query(select([UserInfo]).where(UserInfo.account_id == account_id))
         return user_info
 
     def select_bill_account(self, manager_id):
