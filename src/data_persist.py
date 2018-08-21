@@ -96,7 +96,6 @@ class DataPersist(object):
 
         bill_config = query.select_bill_config(account_id)
         date = datetime.strptime(datetime.today().strftime('%Y-%m-%d'), '%Y-%m-%d')
-        print(date)
         bill_c_1 = bills[0]
         bill_c_2 = bills[1]
         bill_c_3 = bills[2]
@@ -104,15 +103,14 @@ class DataPersist(object):
         bill_c_5 = bills[4]
         due_date = bills[5]
         due_date = datetime.strptime(due_date, '%Y-%m-%d')
-        print(due_date)
         total = Decimal(bill_c_1) + Decimal(bill_c_2) + Decimal(bill_c_3) + Decimal(bill_c_4) + Decimal(bill_c_5)
         total_pp = round(Decimal(total)/Decimal(user_count), 2)
+
         bill = Bill(date, bill_c_1, bill_c_2, bill_c_3, bill_c_4, bill_c_5, total_pp, total, due_date, bill_configs=bill_config)
 
         query.insert(bill)
         query.session_commit()
-
-        # for some reason is killing the session for user ---> query.session_close()
+        query.session_close()
 
     @staticmethod
     def _persist_bill_config(account, bill_account):
@@ -134,15 +132,6 @@ class DataPersist(object):
         hashed_password = hashed_password.decode('utf-8')
 
         return hashed_password
-
-    @staticmethod
-    def _string_to_date(value):
-        try:
-            year, month, day = value.split("-")
-            return year, month, day
-
-        except:
-            DataPersist.logger("Log E Value cannot be split into a date!")
 
     @staticmethod
     def logger(message):

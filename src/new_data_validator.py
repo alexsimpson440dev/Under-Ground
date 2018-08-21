@@ -107,6 +107,9 @@ class NewDataValidator(object):
 
 # ---------------------Bills-------------------------
 
+    # validates that everything going into bills is valid data
+    # not currently verifying that the due date is greater than the current date
+    # because the users can than see if the manager is being scummy
     def validate_bills(self, bills):
         due_date = bills.pop('due_date')
         raw_due_date = due_date.replace('-', '')
@@ -131,7 +134,6 @@ class NewDataValidator(object):
 
 # ----------------------Static Methods-----------------
 
-    # todo: Could probably put this into one simpler method / one if statement
     @staticmethod
     def _validate_password(password):
         if re.search(r'[a-z]', password)\

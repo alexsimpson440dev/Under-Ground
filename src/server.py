@@ -232,15 +232,14 @@ def bill():
 
         else:
             email_address = session.get_session('email')
-            user = query.select_email(email_address)
 
             if request.method == 'POST':
                 bills = request.form
-                add_bill(bills, user.user_id)
+                add_bill(bills, query.select_email(email_address).user_id)
 
             # regular user
-            if user.user_type == 3:
-                account_id = query.select_user_info(user.user_id).account_id
+            if query.select_email(email_address).user_type == 3:
+                account_id = query.select_user_info(query.select_email(email_address).user_id).account_id
                 bill_names = format_bill_config(account_id)
 
                 logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with User Credentials retrieved.')
@@ -248,8 +247,8 @@ def bill():
 
             # this would be expected to change when a manager has more than one account
             # manager
-            if user.user_type == 1:
-                user_id = user.user_id
+            if query.select_email(email_address).user_type == 1:
+                user_id = query.select_email(email_address).user_id
                 manager_id = query.select_manager_uid(user_id).manager_id
                 account_id = query.select_bill_account(manager_id).account_id
                 bill_names = format_bill_config(account_id)
