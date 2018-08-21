@@ -49,6 +49,10 @@ class QueryManager(object):
         for config in db.session.query(BillConfig).filter(BillConfig.account_id == account_id):
             return config
 
+    def select_bill_by_config_id(self, bill_config_id):
+        bill = db.session.query(select([Bill]).where(Bill.bill_config_id == bill_config_id))
+        return bill
+
 # --------------------INSERT QUERIES--------------------------------------------
     # inserts an object
     def insert(self, object):
