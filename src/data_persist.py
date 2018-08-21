@@ -111,7 +111,8 @@ class DataPersist(object):
 
         query.insert(bill)
         query.session_commit()
-        query.session_close()
+
+        # for some reason is killing the session for user ---> query.session_close()
 
     @staticmethod
     def _persist_bill_config(account, bill_account):
