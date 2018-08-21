@@ -95,7 +95,7 @@ class DataPersist(object):
         user_count = query.select_user_count_by_account_id(account_id).count()
 
         bill_config = query.select_bill_config(account_id)
-        date = datetime.today().strftime('%Y-%m-%d')
+        date = datetime.strptime(datetime.today().strftime('%Y-%m-%d'), '%Y-%m-%d')
         print(date)
         bill_c_1 = bills[0]
         bill_c_2 = bills[1]
@@ -133,6 +133,15 @@ class DataPersist(object):
         hashed_password = hashed_password.decode('utf-8')
 
         return hashed_password
+
+    @staticmethod
+    def _string_to_date(value):
+        try:
+            year, month, day = value.split("-")
+            return year, month, day
+
+        except:
+            DataPersist.logger("Log E Value cannot be split into a date!")
 
     @staticmethod
     def logger(message):
