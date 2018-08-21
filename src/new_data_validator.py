@@ -1,6 +1,7 @@
 import re
 import bcrypt
 import numbers
+from datetime import datetime
 
 from src.managers.query_manager import QueryManager
 from src.managers.session_manager import SessionManager
@@ -115,13 +116,13 @@ class NewDataValidator(object):
         raw_due_date = due_date.replace('-', '')
 
         # checks for valid bill values
-        if raw_due_date.isnumeric() and re.search(r'.+-.+-', due_date):
+        if raw_due_date.isnumeric() and re.search(r'.+-.+-', due_date) and self._valid_date(due_date):
             for key, value in bills.items():
                 try:
                     float(value)
 
                 except ValueError as Error:
-                    self.logger(f'Log E {Error} - Not an excepted value')
+                    self.logger(f'Log E {Error} - Not an excepted bill value')
                     return False
 
             bills['due_date'] = due_date
@@ -156,6 +157,16 @@ class NewDataValidator(object):
 
         else:
             NewDataValidator.logger('Log: Invalid Email')
+            return False
+
+    # Checks if the date can exist, i.e: month 13 does not exist
+    @staticmethod
+    def _valid_date(date_value):
+        try:
+            datetime.strftime(date_value, '%Y-%m-%d')
+            return True
+
+        except ValueError:
             return False
 
     @staticmethod
