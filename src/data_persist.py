@@ -90,28 +90,35 @@ class DataPersist(object):
 
     def persist_bill(self, bills, user_id):
         bills = list(bills.values())
+        bills = self._fix_bill_form(bills)
+
         manager_id = query.select_manager_uid(user_id).manager_id
         account_id = query.select_bill_account(manager_id).account_id
         user_count = query.select_user_count_by_account_id(account_id).count()
 
-        bill_config = query.select_bill_config(account_id)
-        date = datetime.strptime(datetime.today().strftime('%Y-%m-%d'), '%Y-%m-%d')
-        bill_c_1 = bills[0]
-        bill_c_2 = bills[1]
-        bill_c_3 = bills[2]
-        bill_c_4 = bills[3]
-        bill_c_5 = bills[4]
-        due_date = bills[5]
-        due_date = datetime.strptime(due_date, '%Y-%m-%d')
-        total = Decimal(bill_c_1) + Decimal(bill_c_2) + Decimal(bill_c_3) + Decimal(bill_c_4) + Decimal(bill_c_5)
-        total_pp = round(Decimal(total)/Decimal(user_count), 2)
+        if user_count is 0:
+            self.logger('Log: Cannot add bill, you have zero users!')
+            return
 
-        bill = Bill(date, bill_c_1, bill_c_2, bill_c_3, bill_c_4, bill_c_5, total_pp, total, due_date, bill_configs=bill_config)
+        else:
+            bill_config = query.select_bill_config(account_id)
+            date = datetime.strptime(datetime.today().strftime('%Y-%m-%d'), '%Y-%m-%d')
+            bill_c_1 = bills[0]
+            bill_c_2 = bills[1]
+            bill_c_3 = bills[2]
+            bill_c_4 = bills[3]
+            bill_c_5 = bills[4]
+            due_date = bills[5]
+            due_date = datetime.strptime(due_date, '%Y-%m-%d')
+            total = Decimal(bill_c_1) + Decimal(bill_c_2) + Decimal(bill_c_3) + Decimal(bill_c_4) + Decimal(bill_c_5)
+            total_pp = round(Decimal(total)/Decimal(user_count), 2)
 
-        query.insert(bill)
-        self._persist_paid(account_id, bill)
-        query.session_commit()
-        query.session_close()
+            bill = Bill(date, bill_c_1, bill_c_2, bill_c_3, bill_c_4, bill_c_5, total_pp, total, due_date, bill_configs=bill_config)
+
+            query.insert(bill)
+            self._persist_paid(account_id, bill)
+            query.session_commit()
+            query.session_close()
 
     @staticmethod
     def _persist_bill_config(account, bill_account):
@@ -125,6 +132,25 @@ class DataPersist(object):
         web_session.clear_session('token')
 
         return bill_config
+
+    @staticmethod
+    def _fix_bill_form(bills):
+        count = len(bills)
+        print(count)
+        if count is 6:
+            return bills
+
+        else:
+            due_date = bills.pop()
+            print(len(bills))
+            append_count = 5 - len(bills)
+            while append_count is not 0:
+                bills.append(0)
+                append_count = append_count - 1
+
+            bills.append(due_date)
+            print(bills)
+            return bills
 
     @staticmethod
     def _persist_paid(account_id, bill):

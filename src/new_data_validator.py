@@ -116,7 +116,7 @@ class NewDataValidator(object):
         raw_due_date = due_date.replace('-', '')
 
         # checks for valid bill values
-        if raw_due_date.isnumeric() and re.search(r'.+-.+-', due_date) and self._valid_date(due_date):
+        if raw_due_date.isnumeric()and re.search(r'.+-.+-', due_date) and self._valid_date(due_date):
             for key, value in bills.items():
                 try:
                     float(value)

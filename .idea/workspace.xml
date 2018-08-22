@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c89ac42b-3668-44ee-8bbc-7341c3b99649" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/managers/query_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/query_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_persist.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_persist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/new_data_validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/new_data_validator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/bill.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bill.html" afterDir="false" />
     </list>
@@ -13,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Under_Ground$server.coverage" NAME="server Coverage Results" MODIFIED="1534824628740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/Under_Ground$server.coverage" NAME="server Coverage Results" MODIFIED="1534912055943" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/Under_Ground$tester_insert.coverage" NAME="tester_insert Coverage Results" MODIFIED="1533512586907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
   <component name="FUSProjectUsageTrigger">
@@ -26,14 +28,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="900" />
-          <entry key="py" value="12612" />
+          <entry key="html" value="992" />
+          <entry key="py" value="13239" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="900" />
-          <entry key="Python" value="12612" />
+          <entry key="HTML" value="992" />
+          <entry key="Python" value="13239" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -53,16 +55,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="245" column="30" lean-forward="true" selection-start-line="245" selection-start-column="30" selection-end-line="245" selection-end-column="30" />
+            <state relative-caret-position="379">
+              <caret line="288" column="38" selection-start-line="288" selection-start-column="38" selection-end-line="288" selection-end-column="38" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1534824547844" expanded="true" signature="1922:1923" ph="..." />
-                <marker date="1534824547844" expanded="true" signature="9478:9732" ph="..." />
-                <marker date="1534824547844" expanded="true" signature="9882:9904" ph="..." />
+                <marker date="1534910542325" expanded="true" signature="1922:1923" ph="..." />
+                <marker date="1534910542325" expanded="true" signature="9637:9640" ph="..." />
+                <marker date="1534910542325" expanded="true" signature="9790:9812" ph="..." />
               </folding>
             </state>
           </provider>
@@ -71,28 +73,28 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/new_data_validator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="542">
-              <caret line="169" column="24" lean-forward="true" selection-start-line="169" selection-start-column="24" selection-end-line="169" selection-end-column="24" />
+            <state relative-caret-position="272">
+              <caret line="119" column="44" lean-forward="true" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1534820623033" expanded="true" signature="1150:1153" ph="..." />
-                <marker date="1534820623033" expanded="true" signature="3594:4367" ph="..." />
-                <marker date="1534820623033" expanded="true" signature="5177:5327" ph="..." />
+                <marker date="1534911863194" expanded="true" signature="1150:1153" ph="..." />
+                <marker date="1534911863194" expanded="true" signature="3594:4366" ph="..." />
+                <marker date="1534911863194" expanded="true" signature="5176:5326" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/data_persist.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="132" column="38" lean-forward="true" selection-start-line="132" selection-start-column="38" selection-end-line="132" selection-end-column="38" />
+            <state relative-caret-position="533">
+              <caret line="120" column="33" lean-forward="true" selection-start-line="120" selection-start-column="33" selection-end-line="120" selection-end-column="33" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1534821382678" expanded="true" signature="3602:4276" ph="..." />
-                <marker date="1534821382678" expanded="true" signature="4756:4925" ph="..." />
-                <marker date="1534821382678" expanded="true" signature="5154:5160" ph="..." />
+                <marker date="1534911863199" expanded="true" signature="3786:4516" ph="..." />
+                <marker date="1534911863199" expanded="true" signature="5471:5640" ph="..." />
+                <marker date="1534911863199" expanded="true" signature="5869:5875" ph="..." />
               </folding>
             </state>
           </provider>
@@ -137,13 +139,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/managers/query_manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="49" column="25" lean-forward="true" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+            <state relative-caret-position="764">
+              <caret line="56" column="23" lean-forward="true" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
               <folding>
                 <element signature="e#0#77#0" expanded="true" />
-                <marker date="1534824326858" expanded="true" signature="212:231" ph="..." />
-                <marker date="1534824326858" expanded="true" signature="974:1103" ph="..." />
-                <marker date="1534824326858" expanded="true" signature="1635:1941" ph="..." />
+                <marker date="1534907915227" expanded="true" signature="212:231" ph="..." />
+                <marker date="1534907915227" expanded="true" signature="974:1103" ph="..." />
+                <marker date="1534907915227" expanded="true" signature="1635:1929" ph="..." />
               </folding>
             </state>
           </provider>
@@ -152,8 +154,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/bill.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+            <state relative-caret-position="347">
+              <caret line="30" column="21" lean-forward="true" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -186,6 +188,8 @@
       <find>clear_se</find>
       <find>web_sess</find>
       <find>user_count</find>
+      <find>persist_bill</find>
+      <find>add_bill</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -228,11 +232,11 @@
         <option value="$PROJECT_DIR$/src/tester_insert.py" />
         <option value="$PROJECT_DIR$/src/database.py" />
         <option value="$PROJECT_DIR$/src/managers/test.py" />
-        <option value="$PROJECT_DIR$/src/new_data_validator.py" />
-        <option value="$PROJECT_DIR$/src/data_persist.py" />
         <option value="$PROJECT_DIR$/templates/bill.html" />
         <option value="$PROJECT_DIR$/src/managers/query_manager.py" />
         <option value="$PROJECT_DIR$/src/server.py" />
+        <option value="$PROJECT_DIR$/src/new_data_validator.py" />
+        <option value="$PROJECT_DIR$/src/data_persist.py" />
       </list>
     </option>
   </component>
@@ -412,6 +416,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1003" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23322684" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -636,38 +641,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/new_data_validator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="542">
-          <caret line="169" column="24" lean-forward="true" selection-start-line="169" selection-start-column="24" selection-end-line="169" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <marker date="1534820623033" expanded="true" signature="1150:1153" ph="..." />
-            <marker date="1534820623033" expanded="true" signature="3594:4367" ph="..." />
-            <marker date="1534820623033" expanded="true" signature="5177:5327" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/tester_insert.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_persist.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="132" column="38" lean-forward="true" selection-start-line="132" selection-start-column="38" selection-end-line="132" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1534821382678" expanded="true" signature="3602:4276" ph="..." />
-            <marker date="1534821382678" expanded="true" signature="4756:4925" ph="..." />
-            <marker date="1534821382678" expanded="true" signature="5154:5160" ph="..." />
           </folding>
         </state>
       </provider>
@@ -682,38 +661,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/managers/query_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="764">
+          <caret line="56" column="23" lean-forward="true" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#77#0" expanded="true" />
+            <marker date="1534907915227" expanded="true" signature="212:231" ph="..." />
+            <marker date="1534907915227" expanded="true" signature="974:1103" ph="..." />
+            <marker date="1534907915227" expanded="true" signature="1635:1929" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/bill.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+        <state relative-caret-position="347">
+          <caret line="30" column="21" lean-forward="true" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
           <folding>
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/managers/query_manager.py">
+    <entry file="file://$PROJECT_DIR$/src/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="49" column="25" lean-forward="true" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+        <state relative-caret-position="379">
+          <caret line="288" column="38" selection-start-line="288" selection-start-column="38" selection-end-line="288" selection-end-column="38" />
           <folding>
-            <element signature="e#0#77#0" expanded="true" />
-            <marker date="1534824326858" expanded="true" signature="212:231" ph="..." />
-            <marker date="1534824326858" expanded="true" signature="974:1103" ph="..." />
-            <marker date="1534824326858" expanded="true" signature="1635:1941" ph="..." />
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1534910542325" expanded="true" signature="1922:1923" ph="..." />
+            <marker date="1534910542325" expanded="true" signature="9637:9640" ph="..." />
+            <marker date="1534910542325" expanded="true" signature="9790:9812" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server.py">
+    <entry file="file://$PROJECT_DIR$/src/new_data_validator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="245" column="30" lean-forward="true" selection-start-line="245" selection-start-column="30" selection-end-line="245" selection-end-column="30" />
+        <state relative-caret-position="272">
+          <caret line="119" column="44" lean-forward="true" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1534911863194" expanded="true" signature="1150:1153" ph="..." />
+            <marker date="1534911863194" expanded="true" signature="3594:4366" ph="..." />
+            <marker date="1534911863194" expanded="true" signature="5176:5326" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_persist.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="120" column="33" lean-forward="true" selection-start-line="120" selection-start-column="33" selection-end-line="120" selection-end-column="33" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <marker date="1534824547844" expanded="true" signature="1922:1923" ph="..." />
-            <marker date="1534824547844" expanded="true" signature="9478:9732" ph="..." />
-            <marker date="1534824547844" expanded="true" signature="9882:9904" ph="..." />
+            <marker date="1534911863199" expanded="true" signature="3786:4516" ph="..." />
+            <marker date="1534911863199" expanded="true" signature="5471:5640" ph="..." />
+            <marker date="1534911863199" expanded="true" signature="5869:5875" ph="..." />
           </folding>
         </state>
       </provider>

@@ -23,6 +23,13 @@
                     <th><button>Pay</button></th>
                 {% endif %}
             </tr>
+            {% for bill in bills %}
+                <tr>
+                    {% for data in bill %}
+                        <td>{{ data }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
         </table>
 
     </div>
