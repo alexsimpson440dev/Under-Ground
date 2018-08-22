@@ -242,6 +242,7 @@ def bill():
                 account_id = query.select_user_info(query.select_email(email_address).user_id).account_id
                 bill_names = format_bill_config(account_id)
                 bills = query.select_bill_by_config_id(query.select_bill_config(account_id).bill_config_id)
+                bills = format_displayed_bill(bills)
 
                 logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with User Credentials retrieved.')
                 return render_template(url_for('bill'), config=bill_names, edit=False, bills=bills)
@@ -254,6 +255,7 @@ def bill():
                 account_id = query.select_bill_account(manager_id).account_id
                 bill_names = format_bill_config(account_id)
                 bills = query.select_bill_by_config_id(query.select_bill_config(account_id).bill_config_id)
+                bills = format_displayed_bill(bills)
 
                 logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with Manager Credentials retrieved.')
                 return render_template(url_for('bill'), config=bill_names, edit=True, bills=bills)
@@ -274,6 +276,20 @@ def format_bill_config(account_id):
         bill_names.remove('')
 
     return bill_names
+
+
+def format_displayed_bill(bills):
+    b = list()
+    for bill in bills:
+        bill = list(bill)
+        for item in bill:
+            print(item)
+            if item is None:
+                bill.remove(None)
+        b.append(bill)
+
+    print(b)
+    return b
 
 
 def add_bill(bills, user_id):

@@ -50,7 +50,8 @@ class QueryManager(object):
             return config
 
     def select_bill_by_config_id(self, bill_config_id):
-        bill = db.session.query(select([Bill]).where(Bill.bill_config_id == bill_config_id))
+        bill = db.session.query(select([Bill.date, Bill.bill_c_1, Bill.bill_c_2, Bill.bill_c_3, Bill.bill_c_4,
+                                        Bill.bill_c_5, Bill.total, Bill.due_date]).where(Bill.bill_config_id == bill_config_id))
         return bill
 
 # --------------------INSERT QUERIES--------------------------------------------

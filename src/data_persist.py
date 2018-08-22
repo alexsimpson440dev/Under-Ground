@@ -108,9 +108,13 @@ class DataPersist(object):
             bill_c_3 = bills[2]
             bill_c_4 = bills[3]
             bill_c_5 = bills[4]
-            due_date = bills[5]
+            due_date = bills.pop(5)
             due_date = datetime.strptime(due_date, '%Y-%m-%d')
-            total = Decimal(bill_c_1) + Decimal(bill_c_2) + Decimal(bill_c_3) + Decimal(bill_c_4) + Decimal(bill_c_5)
+            total = 0
+            for amount in bills:
+                if amount is None:
+                    amount = 0
+                total = total + Decimal(amount)
             total_pp = round(Decimal(total)/Decimal(user_count), 2)
 
             bill = Bill(date, bill_c_1, bill_c_2, bill_c_3, bill_c_4, bill_c_5, total_pp, total, due_date, bill_configs=bill_config)
@@ -144,8 +148,8 @@ class DataPersist(object):
             due_date = bills.pop()
             print(len(bills))
             append_count = 5 - len(bills)
-            while append_count is not 0:
-                bills.append(0)
+            while append_count > 0:
+                bills.append(None)
                 append_count = append_count - 1
 
             bills.append(due_date)
