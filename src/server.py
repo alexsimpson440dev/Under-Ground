@@ -239,13 +239,14 @@ def bill():
 
             # regular user
             if query.select_email(email_address).user_type == 3:
+                user_id = query.select_email(email_address).user_id
                 account_id = query.select_user_info(query.select_email(email_address).user_id).account_id
                 bill_names = format_bill_config(account_id)
-                bills = query.select_bill_by_config_id(query.select_bill_config(account_id).bill_config_id)
-                bills = format_displayed_bill(bills)
+                bills = format_displayed_bill(query.select_bill_by_config_id(query.select_bill_config(account_id).bill_config_id))
+                paid = list(query.select_paid_by_user(user_id))
 
                 logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with User Credentials retrieved.')
-                return render_template(url_for('bill'), config=bill_names, edit=False, bills=bills)
+                return render_template(url_for('bill'), config=bill_names, edit=False, bills=bills, paid=paid)
 
             # this would be expected to change when a manager has more than one account
             # manager
@@ -254,8 +255,7 @@ def bill():
                 manager_id = query.select_manager_uid(user_id).manager_id
                 account_id = query.select_bill_account(manager_id).account_id
                 bill_names = format_bill_config(account_id)
-                bills = query.select_bill_by_config_id(query.select_bill_config(account_id).bill_config_id)
-                bills = format_displayed_bill(bills)
+                bills = format_displayed_bill(query.select_bill_by_config_id(query.select_bill_config(account_id).bill_config_id))
 
                 logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with Manager Credentials retrieved.')
                 return render_template(url_for('bill'), config=bill_names, edit=True, bills=bills)
@@ -291,7 +291,6 @@ def format_displayed_bill(bills):
             none_counter = none_counter - 1
         b.append(bill)
 
-    print(b)
     return b
 
 

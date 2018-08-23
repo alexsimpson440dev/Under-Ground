@@ -15,12 +15,8 @@
                 {% endfor %}
                 <th>Total</th>
                 <th>Due Date</th>
-                <th>paid</th>
-                {% if edit == True %}
-                    <th><button>Edits</button></th>
-                {% endif %}
                 {% if edit == False %}
-                    <th><button>Pay</button></th>
+                    <th>paid</th>
                 {% endif %}
             </tr>
             {% for bill in bills %}
@@ -28,6 +24,10 @@
                     {% for data in bill %}
                         <td>{{ data }}</td>
                     {% endfor %}
+                    <td>{{ paid.pop(0) }}</td>
+                    {% if edit == False %}
+                    <td><button>Pay</button></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>
