@@ -24,8 +24,8 @@
                     {% for data in bill %}
                         <td>{{ data }}</td>
                     {% endfor %}
-                    <td>{{ paid.pop(0) }}</td>
                     {% if edit == False %}
+                    <td>{{ paid.pop(0) }}</td>
                     <td><button>Pay</button></td>
                     {% endif %}
                 </tr>
