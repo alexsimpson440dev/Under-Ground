@@ -60,6 +60,7 @@ class QueryManager(object):
         db.session.add(object)
         return
 
+
 # --------------------UPDATE QUERIES--------------------------------------------
 
 # --------------------DELETE QUERIES--------------------------------------------

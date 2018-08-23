@@ -282,10 +282,13 @@ def format_displayed_bill(bills):
     b = list()
     for bill in bills:
         bill = list(bill)
+        none_counter = 0
         for item in bill:
-            print(item)
             if item is None:
-                bill.remove(None)
+                none_counter = none_counter + 1
+        while none_counter > 0:
+            bill.remove(None)
+            none_counter = none_counter - 1
         b.append(bill)
 
     print(b)
