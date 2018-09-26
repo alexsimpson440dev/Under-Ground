@@ -243,8 +243,8 @@ def bill():
                 account_id = query.select_user_info(query.select_email(email_address).user_id).account_id
                 bill_names = format_bill_config(account_id)
                 bills = format_displayed_bill(query.select_bill_by_config_id(query.select_bill_config(account_id).bill_config_id))
-                paid = query.select_paid_by_user(user_id)
-                print(paid)
+                paid = list(query.select_paid_by_user(user_id))
+                print(f"paid list {paid}")
 
                 logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with User Credentials retrieved.')
                 return render_template(url_for('bill'), config=bill_names, edit=False, bills=bills, paid=paid)
