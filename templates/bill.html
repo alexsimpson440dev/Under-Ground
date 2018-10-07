@@ -26,7 +26,8 @@
                     {% endfor %}
                     {% if edit == False %}
                     <td>{{ paid }}</td>
-                    <td><button>Pay</button></td>
+                    <td><input type="button" value="Pay"
+                               onclick="window.open('https://www.paypal.com/myaccount/transfer/homepage/send/preview')"/></td>
                     {% endif %}
                 </tr>
             {% endfor %}
