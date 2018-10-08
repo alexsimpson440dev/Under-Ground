@@ -234,8 +234,15 @@ def bill():
             email_address = session.get_session('email')
 
             if request.method == 'POST':
-                bills = request.form
-                add_bill(bills, query.select_email(email_address).user_id)
+                if query.select_email(email_address).user_type == 3:
+                    # todo: make an update statement to update pay
+                    print("right now")  # todo: remove
+                    print(query.select_email(email_address).user_id)
+                    query.update_paid(query.select_email(email_address).user_id)
+
+                else:
+                    bills = request.form
+                    add_bill(bills, query.select_email(email_address).user_id)
 
             # regular user
             if query.select_email(email_address).user_type == 3:
@@ -243,7 +250,8 @@ def bill():
                 account_id = query.select_user_info(query.select_email(email_address).user_id).account_id
                 bill_names = format_bill_config(account_id)
                 bills = format_displayed_bill(query.select_bill_by_config_id(query.select_bill_config(account_id).bill_config_id))
-                paid = str(list(query.select_paid_by_user(user_id))[0]).strip("(").strip(")").strip(",")
+                paid = query.select_paid_by_user(user_id)
+                print(paid)
 
                 logger(f'Log: Bill Configuration for Bill Account_ID: {account_id} with User Credentials retrieved.')
                 return render_template(url_for('bill'), config=bill_names, edit=False, bills=bills, paid=paid)

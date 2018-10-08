@@ -1,6 +1,6 @@
 from src.models import User, UserInfo, Manager, BillAccount, Bill, BillConfig, Paid
 from src.database import Database
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 db = Database()
 
@@ -55,7 +55,8 @@ class QueryManager(object):
         return bill
 
     def select_paid_by_user(self, user_id):
-        paid = db.session.query(select([Paid.paid]).where(Paid.user_id == user_id))
+        paid = db.session.query(select([Paid.paid_id, Paid.paid]).where(Paid.user_id == user_id))
+        paid = dict(paid)
         return paid
 
 # --------------------INSERT QUERIES--------------------------------------------
@@ -66,5 +67,7 @@ class QueryManager(object):
 
 
 # --------------------UPDATE QUERIES--------------------------------------------
-
+    # updates pay to true
+    def update_paid(self, user_id):
+        paid_value = db.session.query(Paid).filter(Paid.user_id == user_id)
 # --------------------DELETE QUERIES--------------------------------------------
