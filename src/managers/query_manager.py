@@ -70,4 +70,6 @@ class QueryManager(object):
     # updates pay to true
     def update_paid(self, user_id):
         paid_value = db.session.query(Paid).filter(Paid.user_id == user_id)
+        return
+
 # --------------------DELETE QUERIES--------------------------------------------

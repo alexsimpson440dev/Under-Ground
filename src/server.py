@@ -236,7 +236,6 @@ def bill():
             if request.method == 'POST':
                 if query.select_email(email_address).user_type == 3:
                     # todo: make an update statement to update pay
-                    print("right now")  # todo: remove
                     print(query.select_email(email_address).user_id)
                     query.update_paid(query.select_email(email_address).user_id)
 
