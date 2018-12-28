@@ -249,6 +249,9 @@ def bill():
                 account_id = query.select_user_info(query.select_email(email_address).user_id).account_id
                 bill_names = format_bill_config(account_id)
                 bills = format_displayed_bill(query.select_bill_by_config_id(query.select_bill_config(account_id).bill_config_id))
+
+                # TODO: Something is wrong with query or way it is getting displayed. It is showing each paid for each bill
+                # TODO: so if there are three bills, then each line on bills will show 3 paids
                 paid = query.select_paid_by_user(user_id)
                 print(paid)
 
@@ -286,7 +289,7 @@ def format_bill_config(account_id):
 
 
 def format_displayed_bill(bills):
-    b = list()
+    bill_list = list()
     for bill in bills:
         bill = list(bill)
         none_counter = 0
@@ -296,9 +299,9 @@ def format_displayed_bill(bills):
         while none_counter > 0:
             bill.remove(None)
             none_counter = none_counter - 1
-        b.append(bill)
+        bill_list.append(bill)
 
-    return b
+    return bill_list
 
 
 def add_bill(bills, user_id):

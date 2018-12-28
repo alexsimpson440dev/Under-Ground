@@ -55,7 +55,7 @@ class QueryManager(object):
         return bill
 
     def select_paid_by_user(self, user_id):
-        paid = db.session.query(select([Paid.paid_id, Paid.paid]).where(Paid.user_id == user_id))
+        paid = db.session.query(select([Paid.bill_id, Paid.paid]).where(Paid.user_id == user_id))
         paid = dict(paid)
         return paid
 

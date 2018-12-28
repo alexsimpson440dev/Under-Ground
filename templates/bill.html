@@ -25,8 +25,7 @@
                         <td>{{ data }}</td>
                     {% endfor %}
                     {% if edit == False %}
-                        {% for bill in paid %}
-                        <td>{{ paid[bill] }}</td>
+                        <td>{{ paid.pop(loop.index) }}</td>
                         <td>
                             <form method="post">
                                 <input type="submit" value="Pay"
@@ -34,7 +33,6 @@
                                     id="{{ bill }}"/>
                             </form>
                         </td>
-                        {% endfor %}
                     {% endif %}
                 </tr>
             {% endfor %}
