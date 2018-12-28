@@ -9,6 +9,7 @@
         <h1>Bills</h1>
         <table>
             <tr>
+                <th>Bill #</th>
                 <th>Date</th>
                 {% for value in config %}
                     <th>{{ value }}</th>
@@ -25,12 +26,11 @@
                         <td>{{ data }}</td>
                     {% endfor %}
                     {% if edit == False %}
-                        <td>{{ paid.pop(loop.index) }}</td>
                         <td>
                             <form method="post">
                                 <input type="submit" value="Pay"
                                    onclick="window.open('https://www.paypal.com/myaccount/transfer/homepage/send/preview')"
-                                    id="{{ bill }}"/>
+                                    id="{{ bill[0] }}"/>
                             </form>
                         </td>
                     {% endif %}
