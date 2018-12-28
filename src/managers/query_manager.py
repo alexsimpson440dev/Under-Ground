@@ -1,6 +1,6 @@
 from src.models import User, UserInfo, Manager, BillAccount, Bill, BillConfig, Paid
 from src.database import Database
-from sqlalchemy import select, update
+from sqlalchemy import select, and_, update
 
 db = Database()
 
@@ -52,6 +52,12 @@ class QueryManager(object):
     def select_bill_by_config_id(self, bill_config_id):
         bill = db.session.query(select([Bill.date, Bill.bill_c_1, Bill.bill_c_2, Bill.bill_c_3, Bill.bill_c_4,
                                         Bill.bill_c_5, Bill.total, Bill.due_date]).where(Bill.bill_config_id == bill_config_id))
+        return bill
+
+    def select_bill_pay(self, bill_config_id, user_id):
+        bill = db.session.query(select([Paid.bill_id, Bill.date, Bill.bill_c_1, Bill.bill_c_2, Bill.bill_c_3, Bill.bill_c_4,
+                                        Bill.bill_c_5, Bill.total, Bill.due_date, Paid.paid]).where(and_(Bill.bill_config_id == bill_config_id,
+                                                                                                    Paid.user_id == user_id)))
         return bill
 
     def select_paid_by_user(self, user_id):
