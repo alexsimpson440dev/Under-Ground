@@ -226,7 +226,7 @@ def create_bill_account():
 @app.route('/bill')
 @app.route('/bill.html', methods=['get', 'post'])
 def bill():
-    # try:
+    try:
         if not session.check_session('email'):
             return redirect(url_for('sign_in'))
 
@@ -236,8 +236,11 @@ def bill():
             if request.method == 'POST':
                 if query.select_email(email_address).user_type == 3:
                     # todo: make an update statement to update pay
-                    print(query.select_email(email_address).user_id)
-                    query.update_paid(query.select_email(email_address).user_id)
+                    bill_id = list(request.form.to_dict().keys())[0]
+                    logger(f'Log: Updating paid to True for bill_id: {bill_id}')
+
+                    # print(query.select_email(email_address).user_id)
+                    query.update_paid(bill_id)
 
                 else:
                     bills = request.form
@@ -267,11 +270,11 @@ def bill():
 
         return render_template(url_for('bill'))
 
-    # except:
-    #     error = str(sys.exc_info())
-    #     logger('Log E Error in bill')
-    #     logger('Log E ' + error)
-    #     return render_template('error.html')
+    except:
+        error = str(sys.exc_info())
+        logger('Log E Error in bill')
+        logger('Log E ' + error)
+        return render_template('error.html')
 
 
 def format_bill_config(account_id):
@@ -282,7 +285,7 @@ def format_bill_config(account_id):
 
     return bill_names
 
-# todo: maybe add the paid portion here or figure out join
+
 def format_displayed_bill(bills):
     bill_list = list()
     for bill in bills:
