@@ -18,9 +18,6 @@ validate = NewDataValidator()
 app = Flask(__name__, '/static', static_folder='../static', template_folder='../templates')
 app.secret_key = "changethisplz"  # todo: change this
 
-# TODO: ABSTRACT METHODS FROM THE SERVER!!! TO MANY LOOPS
-# TODO: ^^^ --- PUT VERIFICATION ON PERSISTING SIDE??
-
 
 @app.route('/')
 @app.route('/index.html', methods=['get', 'post'])
@@ -33,7 +30,17 @@ def index():
             sign_out()
             return redirect(url_for('sign_in'))
 
-        return render_template(url_for('index'))
+        email_address = session.get_session('email')
+        user_type = query.select_email(email_address).user_type
+        if user_type == 1:
+            # get user id, get manager id, get account id, then get all users with that account id
+            account_id = query.select_bill_account(
+                query.select_manager_uid(
+                    query.select_email(email_address).user_id).manager_id).account_id
+
+            page_info = query.select_index_page_info_manager(account_id)
+
+        return render_template(url_for('index'), user_type=user_type, page_info=page_info)
 
     except:
         error = str(sys.exc_info())
@@ -235,7 +242,6 @@ def bill():
 
             if request.method == 'POST':
                 if query.select_email(email_address).user_type == 3:
-                    # todo: make an update statement to update pay
                     bill_id = list(request.form.to_dict().keys())[0]
                     logger(f'Log: Updating paid to True for bill_id: {bill_id}')
 

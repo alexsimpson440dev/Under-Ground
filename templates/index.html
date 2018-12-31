@@ -13,5 +13,22 @@
 
         <a href="{{ url_for('bill') }}">Bills</a>
     </div>
+
+    {% if user_type == 1 %}
+    <div>
+        <table>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            {% for user_info in page_info %}
+                <tr>
+                    {% for info in user_info %}
+                        <td>{{ info }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
 </body>
 </html>

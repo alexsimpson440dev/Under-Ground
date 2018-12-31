@@ -76,6 +76,12 @@ class QueryManager(object):
         db.session.commit()
         return paid
 
+    def select_index_page_info_manager(self, account_id):
+        results = db.session.query(select([UserInfo.first_name, UserInfo.last_name, User.email_address]).distinct().
+                                   where(and_(UserInfo.account_id == account_id, User.user_id == UserInfo.user_id)))
+        db.session.commit()
+        return results
+
 # --------------------INSERT QUERIES--------------------------------------------
     # inserts an object
     def insert(self, object):
