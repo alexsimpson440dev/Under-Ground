@@ -1,6 +1,13 @@
 body {
     background-color: whitesmoke;
     font-family: "Century Gothic", sans-serif;
+    margin: 0px;
+}
+
+table {
+    margin: auto;
+    text-align: center;
+    h1:
 }
 
 .container {
@@ -9,11 +16,16 @@ body {
 
 .header {
     width: 100%;
-    height: 70px;
-    color: steelblue;
+    height: 40px;
+    color: whitesmoke;
+    background-color: maroon;
     border-bottom: darkslategrey 1px solid;
     text-align: center;
     clear: left;
+}
+
+.bills {
+    margin: auto;
 }
 
 .footer {
