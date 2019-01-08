@@ -64,10 +64,9 @@ class QueryManager(object):
         return bill
 
     def select_bill_pay(self, bill_config_id, user_id):
-        bill = db.session.query(select([Bill.bill_id, Bill.date, Bill.bill_c_1, Bill.bill_c_2, Bill.bill_c_3, Bill.bill_c_4,
-                                        Bill.bill_c_5, Bill.total, Bill.due_date, Paid.paid]).distinct().
-                                where(and_(Bill.bill_config_id == bill_config_id, Paid.user_id == user_id, Bill.bill_id == Paid.bill_id)))
-        print(bill.__str__())
+        bill = db.session.query(Bill.bill_id, Bill.date, Bill.bill_c_1, Bill.bill_c_2, Bill.bill_c_3, Bill.bill_c_4,
+                                        Bill.bill_c_5, Bill.total, Bill.due_date, Paid.paid).distinct().\
+            filter(Bill.bill_config_id == bill_config_id, Paid.user_id == user_id, Bill.bill_id == Paid.bill_id)
         db.session.commit()
         return bill
 
@@ -78,9 +77,9 @@ class QueryManager(object):
         return paid
 
     def select_index_page_info_manager(self, account_id):
-        results = db.session.query(select([UserInfo.first_name, UserInfo.last_name, User.email_address]).distinct().
-                                   where(and_(UserInfo.account_id == account_id, User.user_id == UserInfo.user_id)))
-        print(results.__str__())
+        results = db.session.query(UserInfo.first_name, UserInfo.last_name, User.email_address).distinct().\
+            filter(UserInfo.account_id == account_id, User.user_id == UserInfo.user_id)
+
         db.session.commit()
         return results
 

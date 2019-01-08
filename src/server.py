@@ -33,6 +33,8 @@ def index():
 
         email_address = session.get_session('email')
         user_type = query.select_email(email_address).user_type
+
+        page_info = None
         if user_type == 1:
             # get user id, get manager id, get account id, then get all users with that account id
             account_id = query.select_bill_account(
