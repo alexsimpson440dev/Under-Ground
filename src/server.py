@@ -1,5 +1,6 @@
 import random
 import sys
+import os
 
 from flask import Flask, render_template, url_for, request, redirect
 
@@ -16,7 +17,7 @@ email_manager = EmailManager()
 validate = NewDataValidator()
 
 app = Flask(__name__, '/static', static_folder='../static', template_folder='../templates')
-app.secret_key = "changethisplz"  # todo: change this
+app.secret_key = os.environ['SECRET']
 
 
 @app.route('/')
