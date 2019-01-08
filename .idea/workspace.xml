@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c89ac42b-3668-44ee-8bbc-7341c3b99649" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/email_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/email_manager.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +99,7 @@
           <entry key="Procfile" value="2" />
           <entry key="css" value="2" />
           <entry key="html" value="11" />
-          <entry key="py" value="13" />
+          <entry key="py" value="14" />
           <entry key="txt" value="4" />
         </counts>
       </usages-collector>
@@ -108,7 +108,7 @@
           <entry key="CSS" value="2" />
           <entry key="HTML" value="11" />
           <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="12" />
+          <entry key="Python" value="13" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
@@ -116,7 +116,7 @@
         <counts>
           <entry key="css" value="233" />
           <entry key="html" value="886" />
-          <entry key="py" value="2272" />
+          <entry key="py" value="2315" />
           <entry key="txt" value="3" />
         </counts>
       </usages-collector>
@@ -125,7 +125,7 @@
           <entry key="CSS" value="233" />
           <entry key="HTML" value="886" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="2209" />
+          <entry key="Python" value="2252" />
           <entry key="Scratch" value="63" />
         </counts>
       </usages-collector>
@@ -172,13 +172,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/database.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
               <caret line="19" column="57" lean-forward="true" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/managers/email_manager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -253,7 +265,6 @@
         <option value="$PROJECT_DIR$/templates/managersignup.html" />
         <option value="$PROJECT_DIR$/templates/userlink.html" />
         <option value="$PROJECT_DIR$/templates/createbillaccount.html" />
-        <option value="$PROJECT_DIR$/src/managers/email_manager.py" />
         <option value="$PROJECT_DIR$/templates/sign.html" />
         <option value="$PROJECT_DIR$/templates/user.html" />
         <option value="$PROJECT_DIR$/templates/signin.html" />
@@ -280,6 +291,7 @@
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/src/server.py" />
         <option value="$PROJECT_DIR$/src/database.py" />
+        <option value="$PROJECT_DIR$/src/managers/email_manager.py" />
       </list>
     </option>
   </component>
@@ -312,6 +324,12 @@
               <item name="Under-Ground" type="b2602c69:ProjectViewProjectNode" />
               <item name="Under-Ground" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Under-Ground" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Under-Ground" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="managers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -363,6 +381,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="SECRET" value="cherryCokeisflatterThanthisSubaruKeysetOnthisgrAniteCountertop" />
         <env name="DATABASE_URL" value="postgres://njudxpjcahzdee:871dcc8b19dce7e9ae926bffa380e774f4f5416b570561d09075b7c482561167@ec2-107-20-183-142.compute-1.amazonaws.com:5432/d142pnkvsjpu7k" />
+        <env name="EMAIL_PASSWORD" value="Volkswagen2016GTI" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -461,12 +480,12 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" order="0" visible="true" weight="0.25440452" />
+      <window_info active="true" id="Project" order="0" visible="true" weight="0.25440452" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20722891" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.20722891" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -553,13 +572,6 @@
     <entry file="file://$PROJECT_DIR$/templates/validatemanager.html" />
     <entry file="file://$PROJECT_DIR$/templates/userlink.html" />
     <entry file="file://$PROJECT_DIR$/templates/managerinfo.html" />
-    <entry file="file://$PROJECT_DIR$/src/managers/email_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="57" lean-forward="true" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/managers/session_manager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -752,6 +764,16 @@
           <caret line="19" column="57" lean-forward="true" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/managers/email_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>

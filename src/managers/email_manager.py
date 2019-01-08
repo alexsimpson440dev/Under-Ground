@@ -2,6 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from src.managers.session_manager import SessionManager
+import os
 
 session = SessionManager()
 
@@ -22,7 +23,7 @@ class EmailManager(object):
 
         email_server = smtplib.SMTP('smtp.gmail.com', 587)
         email_server.starttls()
-        email_server.login(self.from_email, "bmwe92m3440")  # todo: change to env var or pull from db
+        email_server.login(self.from_email, os.environ['EMAIL_PASSWORD'])  # todo: change to env var or pull from db
         text = msg.as_string()
         email_server.sendmail(self.from_email, to_email, text)
         email_server.quit()
