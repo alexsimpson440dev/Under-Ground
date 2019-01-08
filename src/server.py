@@ -330,5 +330,5 @@ def logger(message):
     print(message)
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=9999)
+# if __name__ == '__main__':
+#     app.run(debug=True)
