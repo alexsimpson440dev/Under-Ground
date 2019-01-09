@@ -1,6 +1,6 @@
 from src.models import User, UserInfo, Manager, BillAccount, Bill, BillConfig, Paid
 from src.database import Database
-from sqlalchemy import select, and_, update, distinct
+from sqlalchemy import select, and_, update, distinct, func
 
 db = Database()
 
@@ -29,9 +29,15 @@ class QueryManager(object):
         for user_info in db.session.query(UserInfo).filter(UserInfo.user_id == user_id):
             return user_info
 
-    def select_user_count_by_account_id(self, account_id):
+    def select_user_info_with_account_id(self, account_id):
         user_info = db.session.query(UserInfo).filter(UserInfo.account_id == account_id)
         return user_info
+
+    def select_user_count_by_account_id(self, account_id):
+        counter = 0
+        for user_info in db.session.query(UserInfo).filter(UserInfo.account_id == account_id).all():
+            counter += 1
+        return counter
 
     def select_bill_account(self, manager_id):
         for account in db.session.query(BillAccount).filter(BillAccount.manager_id == manager_id):

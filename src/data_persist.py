@@ -94,7 +94,7 @@ class DataPersist(object):
 
         manager_id = query.select_manager_uid(user_id).manager_id
         account_id = query.select_bill_account(manager_id).account_id
-        user_count = query.select_user_count_by_account_id(account_id).count()
+        user_count = query.select_user_count_by_account_id(account_id)
 
         if user_count is 0:
             self.logger('Log: Cannot add bill, you have zero users!')
@@ -140,13 +140,11 @@ class DataPersist(object):
     @staticmethod
     def _fix_bill_form(bills):
         count = len(bills)
-        print(count)
         if count is 6:
             return bills
 
         else:
             due_date = bills.pop()
-            print(len(bills))
             append_count = 5 - len(bills)
             while append_count > 0:
                 bills.append(None)
@@ -158,9 +156,9 @@ class DataPersist(object):
 
     @staticmethod
     def _persist_paid(account_id, bill):
-        users = query.select_user_count_by_account_id(account_id)
+        users = query.select_user_info_with_account_id(account_id)
         for user in users:
-            paid = Paid(user[1], bill)
+            paid = Paid(user.user_id, bill)
             query.insert(paid)
 
     # encrypts password

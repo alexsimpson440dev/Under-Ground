@@ -17,7 +17,7 @@ class Database(object):
         try:
             self.engine = create_engine(connection_string, poolclass=NullPool)
             Base.metadata.create_all(self.engine)
-            self.Session = scoped_session(sessionmaker(bind=self.engine))
+            self.Session = sessionmaker(bind=self.engine)
             self.session = self.Session()
 
         except:
@@ -25,5 +25,5 @@ class Database(object):
             self.engine = create_engine(connection_string, poolclass=NullPool,
                                         connect_args={'check_same_thread': False})
             Base.metadata.create_all(self.engine)
-            self.Session = scoped_session(sessionmaker(bind=self.engine))
+            self.Session = sessionmaker(bind=self.engine)
             self.session = self.Session()
