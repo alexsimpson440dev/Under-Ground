@@ -13,13 +13,17 @@ Base = declarative_base()
 
 
 class Database(object):
-    def __init__(self, connection_string=os.environ['TEST_DATABASE_URL']):
-        if 'sqlite' in connection_string:
-            self.engine = create_engine(connection_string, poolclass=NullPool, connect_args={'check_same_thread': False})
-
-        else:
+    def __init__(self, connection_string=os.environ['DATABASE_URL']):
+        try:
             self.engine = create_engine(connection_string, poolclass=NullPool)
+            Base.metadata.create_all(self.engine)
+            self.Session = scoped_session(sessionmaker(bind=self.engine))
+            self.session = self.Session()
 
-        Base.metadata.create_all(self.engine)
-        self.Session = scoped_session(sessionmaker(bind=self.engine))
-        self.session = self.Session()
+        except:
+            connection_string = os.environ['TEST_DATABASE_URL']
+            self.engine = create_engine(connection_string, poolclass=NullPool,
+                                        connect_args={'check_same_thread': False})
+            Base.metadata.create_all(self.engine)
+            self.Session = scoped_session(sessionmaker(bind=self.engine))
+            self.session = self.Session()
