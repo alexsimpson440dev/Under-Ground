@@ -30,7 +30,7 @@ class QueryManager(object):
             return user_info
 
     def select_user_count_by_account_id(self, account_id):
-        user_info = db.session.query(select([UserInfo]).where(UserInfo.account_id == account_id))
+        user_info = db.session.query(UserInfo).filter(UserInfo.account_id == account_id)
         return user_info
 
     def select_bill_account(self, manager_id):
@@ -64,7 +64,7 @@ class QueryManager(object):
         return bill
 
     def select_paid_by_user(self, user_id):
-        paid = db.session.query(select([Paid.bill_id, Paid.paid]).where(Paid.user_id == user_id))
+        paid = db.session.query(Paid.bill_id, Paid.paid).filter(Paid.user_id == user_id)
         paid = dict(paid)
 
         return paid

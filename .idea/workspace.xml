@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c89ac42b-3668-44ee-8bbc-7341c3b99649" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/query_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/query_manager.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +116,7 @@
         <counts>
           <entry key="css" value="233" />
           <entry key="html" value="886" />
-          <entry key="py" value="2943" />
+          <entry key="py" value="2955" />
           <entry key="txt" value="3" />
         </counts>
       </usages-collector>
@@ -125,7 +125,7 @@
           <entry key="CSS" value="233" />
           <entry key="HTML" value="886" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="2880" />
+          <entry key="Python" value="2892" />
           <entry key="Scratch" value="63" />
         </counts>
       </usages-collector>
@@ -172,7 +172,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/database.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
@@ -184,14 +184,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/managers/query_manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="80" column="30" lean-forward="true" selection-start-line="80" selection-start-column="30" selection-end-line="80" selection-end-column="30" />
+            <state relative-caret-position="116">
+              <caret line="66" column="88" lean-forward="true" selection-start-line="66" selection-start-column="88" selection-end-line="66" selection-end-column="88" />
               <folding>
                 <element signature="e#0#83#0" expanded="true" />
-                <marker date="1547001390769" expanded="true" signature="2757:2980" ph="..." />
+                <marker date="1547003507972" expanded="true" signature="2739:2962" ph="..." />
               </folding>
             </state>
           </provider>
@@ -292,8 +292,8 @@
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/src/server.py" />
         <option value="$PROJECT_DIR$/src/managers/email_manager.py" />
-        <option value="$PROJECT_DIR$/src/managers/query_manager.py" />
         <option value="$PROJECT_DIR$/src/database.py" />
+        <option value="$PROJECT_DIR$/src/managers/query_manager.py" />
       </list>
     </option>
   </component>
@@ -758,23 +758,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/managers/query_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="80" column="30" lean-forward="true" selection-start-line="80" selection-start-column="30" selection-end-line="80" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#83#0" expanded="true" />
-            <marker date="1547001390769" expanded="true" signature="2757:2980" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/database.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/managers/query_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="66" column="88" lean-forward="true" selection-start-line="66" selection-start-column="88" selection-end-line="66" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#83#0" expanded="true" />
+            <marker date="1547003507972" expanded="true" signature="2739:2962" ph="..." />
           </folding>
         </state>
       </provider>
