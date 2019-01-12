@@ -24,6 +24,38 @@ table {
     clear: left;
 }
 
+.nav {
+    display: inline;
+    font-size: 18px;
+}
+
+li.nav a {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    padding: 10px;
+    color: whitesmoke;
+}
+
+li.nav a:hover {
+    background-color: #555;
+}
+
+.sign-out-btn {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  padding: 10px;
+  font-family: inherit;
+  font-size: inherit;
+  color: whitesmoke;
+}
+
+input.sign-out-btn:hover[type="submit"] {
+    background-color: #555;
+}
+
 .bills {
     margin: auto;
 }

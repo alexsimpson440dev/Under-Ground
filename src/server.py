@@ -318,7 +318,6 @@ def add_bill(bills, user_id):
     if validate.validate_bills(bills):
         persist.persist_bill(bills, user_id)
         # do persist, return true
-
     else:
         pass
         # do not persist, return false
