@@ -53,7 +53,7 @@ def index():
 
 
 @app.route('/sign.html')
-@app.route('/signin.html', methods=['get', 'post'])
+@app.route('/login.html', methods=['get', 'post'])
 def sign_in():
     try:
         if session.check_session('email'):

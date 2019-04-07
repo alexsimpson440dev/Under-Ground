@@ -1,0 +1,27 @@
+.login {
+    width: 305px;
+    height: 300px;
+    margin: auto;
+    margin-top: 10%;
+    text-align: center;
+}
+
+label {
+    float: left;
+    font-size: 14px;
+    color: dimgray;
+}
+
+input {
+    font-size: 24px;
+    padding: 3px;
+}
+
+button {
+    width: 305px;
+    padding: 5px 0;
+    height: auto;
+    font-size: 24px;
+    background-color: steelblue;
+    border: none;
+}

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <link href="../static/css/main.css" rel="stylesheet" type="text/css" />
+<link href="../static/css/login.css" rel="stylesheet" type="text/css" />
 <head>
     <meta charset="UTF-8">
     <title>Sign In</title>
@@ -13,7 +14,7 @@
             <li class="nav" style="float: right"><a href="{{ url_for('user_link') }}">Sign Up</a></li>
         </ul>
     </div>
-    <div style="width: 305px; margin: auto">
+    <div class="login">
         <form method="post">
             <input type="text" name="email_address" placeholder="Email Address"><br />
             <input type="password" name="password" placeholder="Password"><br />
