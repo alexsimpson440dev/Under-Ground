@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <link href="../static/css/main.css" rel="stylesheet" type="text/css" />
+<link href="../static/css/login.css" rel="stylesheet" type="text/css" />
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
@@ -15,7 +16,7 @@
     </div>
 
     {% if Page == 0 %}
-    <div style="width: 305px; margin: auto">
+    <div class="login">
         <form action="{{ url_for('user_link') }}" method="POST">
             <input type="text" name="account_id" placeholder="Managers Account Number"><br />
             <input type="submit" value="Continue">
@@ -25,7 +26,7 @@
     {% endif %}
 
     {% if Page == 1 %}
-    <div style="width: 305px; margin: auto">
+    <div class="login">
         <form action="{{ url_for('request_manager') }}" method="POST">
             <p>Put information here.</p>
             <input type="text" name="email" placeholder="Email Address"><br />
@@ -35,7 +36,7 @@
     {% endif %}
 
     {% if Page == 2 %}
-    <div style="width: 305px; margin: auto">
+    <div class="login">
         <form action="{{ url_for('validate_token') }}" method="POST">
             <input type="password" name="token" placeholder="Manager Token"><br />
             <input type="submit" value="Submit">
@@ -44,7 +45,7 @@
     {% endif %}
 
     {% if Page == 3 %}
-    <div style="width: 305px; margin: auto">
+    <div class="login">
         <form method="post">
             <input type="text" name="user_name" placeholder="User Name"><br />
             <input type="email" name="email_address" placeholder="Email Address"><br />

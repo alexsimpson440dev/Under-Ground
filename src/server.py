@@ -77,7 +77,7 @@ def sign_in():
 
 
 @app.route('/signup.html')
-@app.route('/sign/signup', methods=['post', 'get'])
+@app.route('/signup', methods=['post', 'get'])
 def sign_up():
     try:
         if not session.check_session('email'):
@@ -101,7 +101,7 @@ def sign_up():
         return render_template('error.html')
 
 
-@app.route('/sign/managerid', methods=['post', 'get'])
+@app.route('/managerid', methods=['post', 'get'])
 def user_link():
     try:
         if session.check_session('email'):
@@ -129,7 +129,7 @@ def user_link():
 
 
 @app.route('/signup.html')
-@app.route('/sign/requestmanager', methods=['post', 'get'])
+@app.route('/requestmanager', methods=['post', 'get'])
 def request_manager():
     try:
         if session.check_session('email'):
@@ -156,7 +156,7 @@ def request_manager():
 
 
 @app.route('/signup.html')
-@app.route('/sign/validatetoken', methods=['post', 'get'])
+@app.route('/validatetoken', methods=['post', 'get'])
 def validate_token():
     try:
         if not session.check_session('token'):
@@ -181,7 +181,7 @@ def validate_token():
 
 
 @app.route('/signup.html')
-@app.route('/sign/managersignup', methods=['post', 'get'])
+@app.route('/managersignup', methods=['post', 'get'])
 def manager_signup():
     try:
         if not session.check_session('token'):
