@@ -1,2 +1,9 @@
 # Under-Ground
-The back end of Utility-Grounds
+Utility Billing Web Application
+
+Build with Python and Flask - in hopes to move to Node.JS and Express
+
+Python,
+Flask,
+Heroku,
+PostgreSQL
