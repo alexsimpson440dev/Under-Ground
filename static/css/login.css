@@ -17,8 +17,9 @@ input {
     padding: 3px;
 }
 
-button {
-    width: 305px;
+input[type=submit], input[type=button] {
+    margin-top: 10px;
+    width: 240px;
     padding: 5px 0;
     height: auto;
     font-size: 24px;
